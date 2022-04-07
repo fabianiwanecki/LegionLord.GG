@@ -51,7 +51,6 @@ export class BarComponent implements OnInit {
   }
 
   drawChart() {
-    console.log(this.data)
     this.x = map(this.data, this.xAccessor);
     this.y = map(this.data, this.yAccessor);
 
