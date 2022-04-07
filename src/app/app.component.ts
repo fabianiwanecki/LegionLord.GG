@@ -9,7 +9,7 @@ declare let gtag: Function;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'legion-lord-frontend';
+  title = 'legion-lord';
 
   constructor(public router: Router){
     this.router.events.subscribe(event => {
