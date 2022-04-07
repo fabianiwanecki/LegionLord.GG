@@ -1,0 +1,18 @@
+<form id="parent" [formGroup]="formSearchPlayer" (keydown)="onKey($event)" fxLayout="column"
+      fxLayoutAlign="center center">
+  <div fxFlex="45"></div>
+  <mat-form-field appearance="outline" class="search-input mat-focused" fxFlex="10">
+    <mat-label>Search a player name</mat-label>
+    <input matInput autocomplete="off" formControlName="playerName">
+    <mat-icon matSuffix (click)="submit()">search</mat-icon>
+  </mat-form-field>
+  <div fxFlex style="width: 50%">
+    <mat-spinner color="accent" class="spinner" *ngIf="loading"></mat-spinner>
+    <mat-card class="not-found" *ngIf="notFound && !loading">
+      <mat-card-content>
+        <span class="mat-subheading-2">Player not found</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</form>
+

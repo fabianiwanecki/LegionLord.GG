@@ -1,0 +1,123 @@
+.content {
+  width: 1380px;
+  margin: 64px auto auto;
+}
+
+.player-icon {
+  width: 144px;
+  height: 144px;
+  margin-right: 16px;
+}
+
+span {
+  display: block;
+  margin: 0;
+}
+
+mat-card-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+mat-tab-group {
+  width: 100%;
+
+  height: 100%;
+}
+
+::ng-deep .mat-tab-label {
+  min-width: 0 !important;
+}
+
+.circle {
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
+.circle-text-center {
+  height: 0;
+  position: relative;
+  top: 36px;
+  text-align: center;
+}
+
+.circle-back {
+  position: absolute;
+  top: 12px;
+  right: 128px;
+  z-index: -1;
+}
+
+.circle-text-bottom {
+  text-align: center;
+}
+
+.mat-progress-spinner {
+  margin: auto;
+}
+
+::ng-deep .mat-progress-spinner.blue circle, .mat-spinner.mat-accent circle {
+  stroke: #2796bc !important;
+  stroke-width: 7% !important;
+}
+
+::ng-deep .mat-progress-spinner.green circle, .mat-spinner.mat-accent circle {
+  stroke: #3cbc8d !important;
+  stroke-width: 7% !important;
+}
+
+
+::ng-deep .mat-progress-spinner.gray circle, .mat-spinner.mat-accent circle {
+  stroke: gray !important;
+  stroke-width: 7% !important;
+}
+
+.circle-container {
+  margin-left: 64px;
+  margin-right: 64px;
+  margin-top: 12px;
+}
+
+.no-padding {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: white !important;
+}
+
+.mat-divider:last-child {
+  display: none;
+}
+
+.elo-icon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 6px;
+  margin-right: 4px;
+}
+
+.recent-games {
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.no-matches {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.loading-spinner {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.block {
+  display: block;
+}

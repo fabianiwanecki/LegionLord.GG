@@ -1,0 +1,165 @@
+<mat-accordion>
+  <mat-expansion-panel class="mat-elevation-z0" (keyup)="changeSelectedWave($event)"
+                       (opened)="panelOpenState = true"
+                       (afterCollapse)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="container">
+        <div fxFlex>
+          <span class="mat-title">{{entry.queueType}}</span><br/>
+          <span class="mat-subheading-2">{{entry.date | timeago}}</span><br/>
+          <span class="mat-subheading-2">Wave {{entry.endingWave}}</span>
+        </div>
+        <div fxFlex><img class="icon-large mat-elevation-z10"
+                         [src]="legionCdnUrl + 'icons/' + getPlayer()?.firstWaveFighters.split(',')[0].replaceAll(' ', '') + '.png'"/>
+        </div>
+        <div fxFlex>
+          <span
+            [className]="'mat-headline ' + (getPlayer()?.gameResult || 'left')">{{getPlayer()?.gameResult || 'left' | titlecase}}
+            <br/></span>
+          <span class="mat-subheading-1">{{entry.gameLength * 1000 | date: 'mm:ss'}}</span>
+        </div>
+        <div fxFlex>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="assets/Income.png"/>{{getPlayer()?.incomePerWave[entry.endingWave - 1]}}</span><br/>
+          <div class="spacer"></div>
+          <span class="mat-subheading-1"><img class="icon-small" src="assets/Worker.png"/>{{getPlayer()?.workers}}</span>
+        </div>
+        <div fxFlex>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="assets/Value.png"/>{{getPlayer()?.value}}</span><br/>
+          <div class="spacer"></div>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="assets/LeakRatio.png"/>{{getWavesLeakedCount(getPlayer()?.leaksPerWave)}}</span>
+        </div>
+        <div fxFlex>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="assets/MercenariesSent.png"/>{{getMercenaryValue(getPlayer()?.mercenariesSentPerWave)}}</span><br/>
+          <div class="spacer"></div>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="assets/MercenariesReceived.png"/>{{getMercenaryValue(getPlayer()?.mercenariesReceivedPerWave)}}</span>
+        </div>
+        <div fxFlex="15">
+          <span
+            [className]="'mat-subheading-2 ' + entry.playersData[0]?.gameResult">{{entry.playersData[0]?.gameResult | titlecase}}</span><br/>
+          <ng-container
+            *ngFor="let playerData of entry.playersData.slice(0, entry.playersData.length / 2); let i = index">
+            <span class="mat-subheading-1">{{playerData.playerName}}</span><br/>
+          </ng-container>
+        </div>
+        <div fxFlex="15">
+          <span
+            [className]="'mat-subheading-2 ' + entry.playersData[entry.playersData.length - 1]?.gameResult">{{entry.playersData[entry.playersData.length - 1]?.gameResult | titlecase}}</span><br/>
+          <ng-container *ngFor="let playerData of entry.playersData.slice(entry.playersData.length / 2); let i = index">
+            <span class="mat-subheading-1">{{playerData.playerName}}</span><br/>
+          </ng-container>
+        </div>
+      </div>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngIf="panelOpenState">
+      <mat-tab-group>
+        <mat-tab label="OVERVIEW">
+          <table mat-table [dataSource]="entry.playersData">
+
+            <ng-container matColumnDef="result">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element; let i = index" [class]="(element.gameResult || 'left')"><span
+                class="mat-title"> {{element.gameResult || 'left' | titlecase}} </span></td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element"> {{element.playerName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="opening">
+              <th mat-header-cell *matHeaderCellDef> Opening</th>
+              <td mat-cell *matCellDef="let element"><img class="icon-medium mat-elevation-z10"
+                                                          [src]="legionCdnUrl + 'icons/' + element.firstWaveFighters.split(',')[0].replaceAll(' ', '') + '.png'"/>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fighters">
+              <th mat-header-cell *matHeaderCellDef> Value</th>
+              <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="leaks">
+              <th mat-header-cell *matHeaderCellDef> Leaks</th>
+              <td mat-cell *matCellDef="let element"> {{getWavesLeakedCount(element.leaksPerWave)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="workers">
+              <th mat-header-cell *matHeaderCellDef> Workers</th>
+              <td mat-cell *matCellDef="let element"> {{element.workers}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="income">
+              <th mat-header-cell *matHeaderCellDef> Income</th>
+              <td mat-cell *matCellDef="let element"> {{element.incomePerWave[entry.endingWave - 1]}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sent">
+              <th mat-header-cell *matHeaderCellDef> Sent</th>
+              <td mat-cell *matCellDef="let element"> {{getMercenaryValue(element.mercenariesSentPerWave)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="received">
+              <th mat-header-cell *matHeaderCellDef> Received</th>
+              <td mat-cell *matCellDef="let element"> {{getMercenaryValue(element.mercenariesReceivedPerWave)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="spell">
+              <th mat-header-cell *matHeaderCellDef> Spell</th>
+              <td mat-cell *matCellDef="let element"> <img class="icon-medium mat-elevation-z10" [src]="getSpellIcon(element.chosenSpell)"/><br/><span>{{element.chosenSpell}}</span></td>
+            </ng-container>
+
+            <ng-container matColumnDef="legion">
+              <th mat-header-cell *matHeaderCellDef> Legion</th>
+              <td mat-cell *matCellDef="let element"> {{element.legion}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-tab>
+        <mat-tab label="BUILDS">
+          <div class="wave-list">
+            <mat-chip-list>
+              <mat-chip *ngFor="let build of entry.playersData[0].buildPerWave; let i = index"
+                        (click)="selectedWave = i"
+                        [class.selected]="selectedWave === i">{{i + 1}}</mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="build" fxLayout="row" fxLayoutGap="32px">
+            <ng-container *ngFor="let playerData of entry.playersData">
+              <div fxLayout="column" fxFlex>
+                <span class="mat-subheading-2 text-center">{{playerData.playerName}}</span>
+                <span class="margin-bottom text-center">
+                <span class="margin-right"><img class="icon-small" src="assets/Worker.png"/>{{playerData.workersPerWave[selectedWave]}}
+                  (+{{playerData.workersPerWave[selectedWave] - (playerData.workersPerWave[selectedWave - 1] || 0)}}
+                  )</span>
+              <span><img class="icon-small" src="assets/Income.png"/>{{playerData.incomePerWave[selectedWave]}}
+                (+{{playerData.incomePerWave[selectedWave] - (playerData.incomePerWave[selectedWave - 1] || 0)}})</span>
+              </span>
+
+                <app-game-build fxFlex [units]="playerData.buildPerWave[selectedWave]"
+                                (keyup)="changeSelectedWave($event)"></app-game-build>
+                <span class="mat-subheading-2 text-mercenaries-received" fxFlex>Mercenaries received</span>
+                <div fxFlex>
+                  <img class="icon-mercenary" [src]="getMercenaryIcon(mercenary)"
+                       *ngFor="let mercenary of playerData.mercenariesReceivedPerWave[selectedWave]"/>
+                </div>
+                <span class="mat-subheading-2 text-mercenaries-received" fxFlex>King upgrades received</span>
+                <div fxFlex>
+                  <img class="icon-mercenary" [src]="getKingUpgradeIcon(kingUpgrade)"
+                       *ngFor="let kingUpgrade of playerData.opponentKingUpgradesPerWave[selectedWave]"/>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>

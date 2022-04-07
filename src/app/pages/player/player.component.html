@@ -1,0 +1,117 @@
+<div class="content" gdColumns="repeat(14, minmax(0, 1fr))" gdGap="16px">
+  <mat-card class="mat-elevation-z10" gdColumn="auto / span 8">
+    <mat-card-content>
+      <img [src]="legionCdnUrl + player?.avatarUrl" class="player-icon" alt="player avatar picture"/>
+      <div class="player-details">
+        <span class="mat-headline">{{player?.playerName}}</span>
+        <span class="mat-title">{{player?.guildName}}
+          <ng-container *ngIf="player?.guildTag">[{{player.guildTag}}]</ng-container></span>
+        <span class="mat-subheading-2" *ngIf="playerStats?.overallEloThisSeasonAtLeastOneGamePlayed">
+          <img class="elo-icon"
+               [src]="'assets/ranks/' + getEloIcon(playerStats?.overallEloThisSeasonAtLeastOneGamePlayed)"/>{{playerStats?.overallEloThisSeasonAtLeastOneGamePlayed}}
+          <ng-container
+            *ngIf="playerStats?.overallPeakEloThisSeasonAtLeastOneGamePlayed">/ <img class="elo-icon"
+                                                                                     [src]="'assets/ranks/' + getEloIcon(playerStats?.overallPeakEloThisSeasonAtLeastOneGamePlayed)"/>{{playerStats.overallPeakEloThisSeasonAtLeastOneGamePlayed}}
+            (Peak)</ng-container></span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-elevation-z10 no-padding" gdColumn="auto / span 6">
+    <mat-card-content>
+      <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="RANKED (SEASON)">
+          <div class="circle-container" fxLayout="row">
+            <div class="circle" fxFlex>
+              <span
+                class="mat-title circle-text-center">{{(playerStats?.rankedWinsThisSeason || 0) + (playerStats?.rankedLossesThisSeason || 0)}}</span>
+              <mat-progress-spinner class="blue" value="100"></mat-progress-spinner>
+              <span class="mat-title circle-text-bottom">Played</span>
+            </div>
+            <div class="circle" fxFlex>
+              <span
+                class="mat-title circle-text-center">{{((playerStats?.rankedWinsThisSeason || 0) / ((playerStats?.rankedWinsThisSeason || 0) + (playerStats?.rankedLossesThisSeason || 0)) || 0) | percent:'1.0-2'}}</span>
+              <mat-progress-spinner class="green"
+                                    [value]="playerStats?.rankedWinsThisSeason / (playerStats?.rankedWinsThisSeason + playerStats?.rankedLossesThisSeason) * 100"></mat-progress-spinner>
+              <mat-progress-spinner class="gray circle-back" value="100"></mat-progress-spinner>
+              <span class="mat-title circle-text-bottom">Winrate</span>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="CLASSIC (SEASON)">
+          <div class="circle-container" fxLayout="row">
+            <div class="circle" fxFlex>
+              <span
+                class="mat-title circle-text-center">{{(playerStats?.classicWinsThisSeason || 0) + (playerStats?.classicLossesThisSeason || 0)}}</span>
+              <mat-progress-spinner class="blue" value="100"></mat-progress-spinner>
+              <span class="mat-title circle-text-bottom">Played</span>
+            </div>
+            <div class="circle" fxFlex>
+              <span
+                class="mat-title circle-text-center">{{((playerStats?.classicWinsThisSeason || 0) / ((playerStats?.classicWinsThisSeason || 0) + (playerStats?.classicLossesThisSeason || 0)) || 0) | percent:'1.0-2'}}</span>
+              <mat-progress-spinner class="green"
+                                    [value]="playerStats?.classicWinsThisSeason / (playerStats?.classicWinsThisSeason + playerStats?.classicLossesThisSeason) * 100"></mat-progress-spinner>
+              <mat-progress-spinner class="gray circle-back" value="100"></mat-progress-spinner>
+              <span class="mat-title circle-text-bottom">Winrate</span>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="ALL TIME">
+          <div class="circle-container" fxLayout="row">
+            <div class="circle" fxFlex>
+              <span
+                class="mat-title circle-text-center">{{playerStats?.gamesPlayed || 0}}</span>
+              <mat-progress-spinner class="blue" value="100"></mat-progress-spinner>
+              <span class="mat-title circle-text-bottom">Played</span>
+            </div>
+            <div class="circle" fxFlex>
+              <span
+                class="mat-title circle-text-center">{{((playerStats?.wins || 0) / (playerStats?.gamesPlayed)) || 0 | percent:'1.0-2'}}</span>
+              <mat-progress-spinner class="green"
+                                    [value]="playerStats?.wins / (playerStats?.gamesPlayed) * 100"></mat-progress-spinner>
+              <mat-progress-spinner class="gray circle-back" value="100"></mat-progress-spinner>
+              <span class="mat-title circle-text-bottom">Winrate</span>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  <div gdColumn="auto / span 4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Statistics</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="block">
+        <div *ngIf="playerMatchHistory.length < initialPageSize || isLoadNewPlayer">
+          <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
+        </div>
+        <div *ngIf="playerMatchHistory.length >= initialPageSize && !isLoadNewPlayer">
+          <span class="mat-subheading-2">Wave 1 Tendency (last {{initialPageSize}} matches)</span>
+          <app-bar
+            [data]="[{label: 'Snail', value: countFirstWaveSnail() / initialPageSize}, {label: 'King', value: countFirstWaveKing() / initialPageSize}, {label: 'Save', value: countFirstWaveSave() / initialPageSize}]"></app-bar>
+          <span class="mat-subheading-2">Legion picks (last {{initialPageSize}} matches)</span>
+          <app-bar [data]="getLegionData()"></app-bar>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-card gdColumn="auto / span 10" class="no-padding mat-elevation-z10 recent-games">
+    <mat-card-header>
+      <mat-card-title>Recent games</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="display: block" infinite-scroll
+                      [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
+                      [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+      <ng-container *ngFor="let playerMatchHistoryEntry of playerMatchHistory">
+        <app-match-history-entry [entry]="playerMatchHistoryEntry"></app-match-history-entry>
+        <mat-divider></mat-divider>
+      </ng-container>
+      <div *ngIf="isMatchHistoryLoading || !isLoadNewPlayer">
+        <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
+      </div>
+      <div *ngIf="!isMatchHistoryLoading && (!playerMatchHistory || playerMatchHistory?.length === 0)">
+        <span class="mat-headline no-matches">No recent matches</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

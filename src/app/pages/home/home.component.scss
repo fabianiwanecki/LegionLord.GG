@@ -1,0 +1,40 @@
+.search-input {
+  width: 50%;
+}
+
+#parent {
+  display: flex;
+  height: 80vh;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input {
+  caret-color: white;
+  color: white;
+}
+
+mat-icon {
+  color: white;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+mat-form-field {
+  font-size: 1.2rem;
+}
+
+.spinner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.not-found {
+  top: -27px;
+}

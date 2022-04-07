@@ -1,0 +1,13 @@
+<div #container xmlns:svg="http://www.w3.org/2000/svg">
+  <app-chart [chartId]="chartId"
+             [dimensions]="dimensions">
+    <svg:g [attr.style]="'translate(' + dimensions.marginLeft + 'px, ' + dimensions.marginTop + '}px)'">
+      <svg:g [attr.fill]="color">
+        <ng-container *ngFor="let bar of i; let in = index" >
+          <svg:rect [attr.x]="this.xScale(this.x[bar])" [attr.y]="yScale(y[bar])" [attr.width]="xScale.bandwidth()" [attr.height]="yScale(0) - yScale(y[bar])"></svg:rect>
+          <svg:text [attr.fill]="'white'" [attr.x]="this.xScale(this.x[bar]) + (xScale.bandwidth()/2)" [attr.y]="yScale(0) + 20">{{x[bar]}}</svg:text>
+        </ng-container>
+      </svg:g>
+    </svg:g>
+  </app-chart>
+</div>

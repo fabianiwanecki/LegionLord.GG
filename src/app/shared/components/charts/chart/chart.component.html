@@ -1,0 +1,12 @@
+<svg [attr.id]="chartId" [attr.height]="dimensions.height" [attr.width]="dimensions.width"
+     xmlns:svg="http://www.w3.org/2000/svg">
+  <svg:g [style.transform]="[
+  'translate(',
+  dimensions.marginLeft,
+  'px, ',
+  dimensions.marginTop,
+  'px)'
+].join('')">
+    <ng-content></ng-content>
+  </svg:g>
+</svg>

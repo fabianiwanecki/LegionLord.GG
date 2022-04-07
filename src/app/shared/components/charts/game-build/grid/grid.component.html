@@ -1,0 +1,8 @@
+<ng-container xmlns:svg="http://www.w3.org/2000/svg">
+  <svg:g *ngFor="let el of xCountArray(); let i = index">
+    <svg:line [attr.y2]="dimensions.boundedHeight()" [attr.x1]="i * dimensions.boundedWidth() / xCount" [attr.x2]="i * dimensions.boundedWidth() / xCount"/>
+  </svg:g>
+  <svg:g *ngFor="let el of yCountArray(); let i = index">
+    <svg:line [attr.x2]="dimensions.boundedWidth()" [attr.y1]="i * dimensions.boundedHeight() / yCount" [attr.y2]="i * dimensions.boundedHeight() / yCount"/>
+  </svg:g>
+</ng-container>

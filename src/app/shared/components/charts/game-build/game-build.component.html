@@ -1,0 +1,14 @@
+<div #container xmlns:svg="http://www.w3.org/2000/svg">
+  <app-chart [chartId]="chartId"
+             [dimensions]="dimensions">
+    <svg:g app-grid
+           [xCount]="xCount"
+           [yCount]="yCount"
+           [dimensions]="dimensions">
+    </svg:g>
+    <svg:g>
+      <svg:image [attr.width]="gridSize" [attr.height]="gridSize" [attr.x]="xPosAccessor(unit)"
+                 [attr.y]="yPosAccessor(unit)" *ngFor="let unit of units" [attr.href]="hrefAccessor(unit)"/>
+    </svg:g>
+  </app-chart>
+</div>
