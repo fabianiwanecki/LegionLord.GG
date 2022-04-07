@@ -98,6 +98,7 @@ tr.mat-row, tr.mat-footer-row {
 
 .text-mercenaries-received {
   margin-bottom: 0;
+  display: block;
 }
 
 .text-center {
@@ -105,9 +106,51 @@ tr.mat-row, tr.mat-footer-row {
 }
 
 .margin-right {
-  margin-right: 32px;
+  margin-right: 16px;
 }
 
 .margin-bottom {
   margin-bottom: 8px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+$num-articles: 12; /* Set number of articles here (need to update markup accordingly) */
+$num-cols: 4;  /* Set number of required columns here */
+$components: span section app-game-build div article;
+
+.grid-container {
+  display: grid;
+  grid-column-gap: 1em;
+  grid-template-columns: repeat($num-cols, 1fr);
+}
+
+.grid-content {
+  display: contents;
+}
+
+@for $i from 1 through length($components) {
+  @for $j from 1 through $num-articles {
+    .grid-content:nth-child(#{$j}) #{nth($components, $i)} {
+      grid-row: $i + length($components) * floor(($j - 1) / $num-cols);
+      grid-column: 1 + ($j - 1) % $num-cols;
+    }
+  }
+}
+
+.name {
+  margin-top: 32px;
+}
+
+article {
+  margin-bottom: 32px;
+}
+
+.mat-divider {
+  color: white;
 }

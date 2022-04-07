@@ -60,7 +60,6 @@ export class PlayerComponent implements OnInit {
               this.playerMatchHistory = playerMatchHistory;
               this.isMatchHistoryLoading = false;
               this.isLoadNewPlayer = false;
-              this.isLoadNewPlayer = false;
             },
             error: () => {
               this.isMatchHistoryLoading = false;

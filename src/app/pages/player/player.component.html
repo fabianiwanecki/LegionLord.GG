@@ -6,12 +6,21 @@
         <span class="mat-headline">{{player?.playerName}}</span>
         <span class="mat-title">{{player?.guildName}}
           <ng-container *ngIf="player?.guildTag">[{{player.guildTag}}]</ng-container></span>
-        <span class="mat-subheading-2" *ngIf="playerStats?.overallEloThisSeasonAtLeastOneGamePlayed">
+        <span class="mat-subheading-2" *ngIf="playerStats?.overallElo">
+          Ranked:
           <img class="elo-icon"
-               [src]="'assets/ranks/' + getEloIcon(playerStats?.overallEloThisSeasonAtLeastOneGamePlayed)"/>{{playerStats?.overallEloThisSeasonAtLeastOneGamePlayed}}
+               [src]="'assets/ranks/' + getEloIcon(playerStats?.overallElo)"/>{{playerStats?.overallElo}}
           <ng-container
-            *ngIf="playerStats?.overallPeakEloThisSeasonAtLeastOneGamePlayed">/ <img class="elo-icon"
-                                                                                     [src]="'assets/ranks/' + getEloIcon(playerStats?.overallPeakEloThisSeasonAtLeastOneGamePlayed)"/>{{playerStats.overallPeakEloThisSeasonAtLeastOneGamePlayed}}
+            *ngIf="playerStats?.overallPeakEloThisSeason">/ <img class="elo-icon"
+                                                                 [src]="'assets/ranks/' + getEloIcon(playerStats?.overallPeakEloThisSeason)"/>{{playerStats.overallPeakEloThisSeason}}
+            (Peak)</ng-container></span>
+        <span class="mat-subheading-2" *ngIf="playerStats?.classicElo">
+          Classic:
+          <img class="elo-icon"
+               [src]="'assets/ranks/' + getEloIcon(playerStats?.classicElo)"/>{{playerStats?.classicElo}}
+          <ng-container
+            *ngIf="playerStats?.classicPeakEloThisSeason">/ <img class="elo-icon"
+                                                                 [src]="'assets/ranks/' + getEloIcon(playerStats?.classicPeakEloThisSeason)"/>{{playerStats.classicPeakEloThisSeason}}
             (Peak)</ng-container></span>
       </div>
     </mat-card-content>
@@ -82,7 +91,7 @@
         <mat-card-title>Statistics</mat-card-title>
       </mat-card-header>
       <mat-card-content class="block">
-        <div *ngIf="playerMatchHistory.length < initialPageSize || isLoadNewPlayer">
+        <div *ngIf="(playerMatchHistory.length < initialPageSize && !isLoadNewPlayer && isMatchHistoryLoading) || isLoadNewPlayer">
           <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
         </div>
         <div *ngIf="playerMatchHistory.length >= initialPageSize && !isLoadNewPlayer">
@@ -106,7 +115,7 @@
         <app-match-history-entry [entry]="playerMatchHistoryEntry"></app-match-history-entry>
         <mat-divider></mat-divider>
       </ng-container>
-      <div *ngIf="isMatchHistoryLoading || !isLoadNewPlayer">
+      <div *ngIf="isMatchHistoryLoading || isLoadNewPlayer">
         <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
       </div>
       <div *ngIf="!isMatchHistoryLoading && (!playerMatchHistory || playerMatchHistory?.length === 0)">
