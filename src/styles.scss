@@ -90,9 +90,21 @@ body {
   caret-color: white;
 }
 
+.mat-form-field-outline-thick {
+  color: rgba(255, 255, 255, 0.3)!important;
+}
+
+.mat-form-field-label {
+  color: rgba(255, 255, 255, 0.7)!important;
+}
 
 
 // utilities
+
+.spacer {
+  flex: 1 1 auto;
+}
+
 .center-h {
   display: block;
   margin-left: auto;

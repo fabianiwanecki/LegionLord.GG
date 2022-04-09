@@ -1,18 +1,5 @@
 <div class="header-container" fxLayout="row">
-  <img src="assets/logo.svg" class="logo" routerLink="/"/>
+  <img src="assets/logo.svg" class="logo" routerLink="/" alt="LegionLord.gg logo"/>
   <div class="spacer"></div>
-  <span routerLink="/legal-disclosure" class="link">Legal disclosure</span>
-  <form id="parent" [formGroup]="formSearchPlayer" (keydown)="onKey($event)" fxLayout="column"
-        fxLayoutAlign="center center">
-    <mat-form-field appearance="outline" class="search-input mat-focused" fxFlex="10">
-      <mat-label>Search a player name</mat-label>
-      <input matInput autocomplete="off" formControlName="playerName">
-      <mat-icon matSuffix (click)="submit()">search</mat-icon>
-    </mat-form-field>
-  </form>
-</div>
-
-
-<div class="static-container">
-  <mat-spinner color="accent" class="spinner" *ngIf="loading"></mat-spinner>
+  <span routerLink="/legal-disclosure" class="legal-disclosure-link">Legal disclosure</span>
 </div>
