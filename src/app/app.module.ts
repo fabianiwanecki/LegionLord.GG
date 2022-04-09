@@ -35,6 +35,7 @@ import { PlayerNotFoundSnackComponent } from './shared/player-not-found-snack/pl
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { PlayerOverviewComponent } from './pages/player/player-overview/player-overview.component';
 import { PlayerGametypeStatsComponent } from './pages/player/player-gametype-stats/player-gametype-stats.component';
+import { PlayerStatisticsComponent } from './pages/player/player-statistics/player-statistics.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { PlayerGametypeStatsComponent } from './pages/player/player-gametype-sta
     PlayerNotFoundSnackComponent,
     PlayerOverviewComponent,
     PlayerGametypeStatsComponent,
+    PlayerStatisticsComponent,
   ],
   imports: [
     BrowserModule,

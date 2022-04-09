@@ -70,43 +70,4 @@ export class PlayerComponent implements OnInit {
       this.isMatchHistoryLoading = false;
     });
   }
-
-  countFirstWaveSnail(): number {
-    return this.playerMatchHistory
-      .slice(0, this.initialPageSize)
-      .map((match: any) =>
-        match.playersData.find((playerData: any) => playerData.playerId === this.route.snapshot.paramMap.get('id')))
-      .map((playerData: any) => {
-        return playerData.mercenariesSentPerWave[0]
-      })
-      .filter((wave1Send: any) => wave1Send.length).length;
-  }
-
-  countFirstWaveKing(): number {
-    return this.playerMatchHistory
-      .slice(0, this.initialPageSize)
-      .map((match: any) =>
-        match.playersData.find((playerData: any) => playerData.playerId === this.route.snapshot.paramMap.get('id')))
-      .map((playerData: any) => {
-        return playerData.kingUpgradesPerWave[0]
-      })
-      .filter((kingWave1: any) => kingWave1.length).length;
-
-  }
-
-  countFirstWaveSave(): number {
-    return this.initialPageSize - (this.countFirstWaveKing() + this.countFirstWaveSnail());
-  }
-
-  getLegionData() {
-    const legionMap = this.playerMatchHistory
-      .slice(0, this.initialPageSize)
-      .map((match: any) =>
-        match.playersData.find((playerData: any) => playerData.playerId === this.route.snapshot.paramMap.get('id')))
-      .map((playerData: any) => playerData.legion)
-      .reduce((previousValue, currentValue) => previousValue.set(currentValue, (previousValue.get(currentValue) || 0) + 1), new Map());
-    return [...legionMap.keys()].map((entry: any) => {
-      return {label: entry, value: legionMap.get(entry)};
-    });
-  }
 }

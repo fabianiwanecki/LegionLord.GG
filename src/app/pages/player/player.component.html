@@ -1,31 +1,12 @@
 <div class="content" gdColumns="repeat(14, minmax(0, 1fr))" gdGap="16px">
   <app-player-overview gdColumn="auto / span 8" [player]="player" [playerStats]="playerStats"></app-player-overview>
   <app-player-gametype-stats gdColumn="auto / span 6" [playerStats]="playerStats"></app-player-gametype-stats>
-  <div gdColumn="auto / span 4">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Statistics</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="block">
-        <div
-          *ngIf="(playerMatchHistory.length < initialPageSize && !isLoadNewPlayer && isMatchHistoryLoading) || isLoadNewPlayer">
-          <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
-        </div>
-        <div *ngIf="playerMatchHistory.length >= initialPageSize && !isLoadNewPlayer">
-          <span class="mat-subheading-2">Wave 1 Tendency (last {{initialPageSize}} matches)</span>
-          <app-bar
-            [data]="[{label: 'Snail', value: countFirstWaveSnail() / initialPageSize}, {label: 'King', value: countFirstWaveKing() / initialPageSize}, {label: 'Save', value: countFirstWaveSave() / initialPageSize}]"></app-bar>
-          <span class="mat-subheading-2">Legion picks (last {{initialPageSize}} matches)</span>
-          <app-bar [data]="getLegionData()"></app-bar>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <app-player-statistics gdColumn="auto / span 4" [playerMatchHistory]="playerMatchHistory" [initialPageSize]="initialPageSize"></app-player-statistics>
   <mat-card gdColumn="auto / span 10" class="mat-elevation-z10 recent-games">
     <mat-card-header>
       <mat-card-title>Recent games</mat-card-title>
     </mat-card-header>
-    <mat-card-content style="display: block" infinite-scroll
+    <mat-card-content infinite-scroll
                       [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
                       [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
       <ng-container *ngFor="let playerMatchHistoryEntry of playerMatchHistory">
