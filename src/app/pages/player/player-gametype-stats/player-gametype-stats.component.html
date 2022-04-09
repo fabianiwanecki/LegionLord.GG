@@ -1,0 +1,59 @@
+<mat-card class="mat-elevation-z10 no-padding">
+  <mat-card-content>
+    <mat-tab-group mat-stretch-tabs>
+      <mat-tab label="RANKED (SEASON)">
+        <div class="circle-container" fxLayout="row">
+          <div fxFlex>
+            <span class="mat-title">Played</span>
+            <mat-progress-spinner [strokeWidth]="7" class="blue" value="100"></mat-progress-spinner>
+            <span
+              class="mat-title text-center">{{(playerStats?.rankedWinsThisSeason || 0) + (playerStats?.rankedLossesThisSeason || 0)}}</span>
+          </div>
+          <div fxFlex>
+            <span class="mat-title">Winrate</span>
+            <mat-progress-spinner class="green" [strokeWidth]="7"
+                                  [value]="playerStats?.rankedWinsThisSeason / (playerStats?.rankedWinsThisSeason + playerStats?.rankedLossesThisSeason) * 100"></mat-progress-spinner>
+            <span
+              class="mat-title text-center">{{((playerStats?.rankedWinsThisSeason || 0) / ((playerStats?.rankedWinsThisSeason || 0) + (playerStats?.rankedLossesThisSeason || 0)) || 0) | percent:'1.0-2'}}</span>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="CLASSIC (SEASON)">
+        <div class="circle-container" fxLayout="row">
+          <div fxFlex>
+            <span class="mat-title">Played</span>
+            <mat-progress-spinner [strokeWidth]="7" class="blue" value="100"></mat-progress-spinner>
+            <span
+              class="mat-title text-center">{{(playerStats?.classicWinsThisSeason || 0) + (playerStats?.classicLossesThisSeason || 0)}}</span>
+          </div>
+          <div fxFlex>
+            <span class="mat-title">Winrate</span>
+            <mat-progress-spinner class="green" [strokeWidth]="7"
+                                  [value]="playerStats?.classicWinsThisSeason / (playerStats?.classicWinsThisSeason + playerStats?.classicLossesThisSeason) * 100"></mat-progress-spinner>
+            <span
+              class="mat-title text-center">{{((playerStats?.classicWinsThisSeason || 0) / ((playerStats?.classicWinsThisSeason || 0) + (playerStats?.classicLossesThisSeason || 0)) || 0) | percent:'1.0-2'}}</span>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="ALL TIME">
+        <div class="circle-container" fxLayout="row">
+          <div fxFlex>
+            <span class="mat-title">Played</span>
+            <mat-progress-spinner [strokeWidth]="7" class="blue" value="100"></mat-progress-spinner>
+            <span
+              class="mat-title text-center">{{(playerStats?.gamesPlayed || 0)}}</span>
+          </div>
+          <div fxFlex>
+            <span class="mat-title">Winrate</span>
+            <mat-progress-spinner class="green" [strokeWidth]="7"
+                                  [value]="playerStats?.wins / (playerStats?.rankedWinsThisSeason + playerStats?.gamesPlayed) * 100"></mat-progress-spinner>
+            <span
+              class="mat-title text-center">{{(playerStats?.wins || 0) / (playerStats?.gamesPlayed || 0) | percent:'1.0-2'}}</span>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

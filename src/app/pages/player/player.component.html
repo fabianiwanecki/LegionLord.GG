@@ -1,65 +1,6 @@
 <div class="content" gdColumns="repeat(14, minmax(0, 1fr))" gdGap="16px">
   <app-player-overview gdColumn="auto / span 8" [player]="player" [playerStats]="playerStats"></app-player-overview>
-  <mat-card class="mat-elevation-z10 no-padding" gdColumn="auto / span 6">
-    <mat-card-content>
-      <mat-tab-group mat-stretch-tabs>
-        <mat-tab label="RANKED (SEASON)">
-          <div class="circle-container" fxLayout="row">
-            <div class="circle" fxFlex>
-              <span
-                class="mat-title circle-text-center">{{(playerStats?.rankedWinsThisSeason || 0) + (playerStats?.rankedLossesThisSeason || 0)}}</span>
-              <mat-progress-spinner class="blue" value="100"></mat-progress-spinner>
-              <span class="mat-title circle-text-bottom">Played</span>
-            </div>
-            <div class="circle" fxFlex>
-              <span
-                class="mat-title circle-text-center">{{((playerStats?.rankedWinsThisSeason || 0) / ((playerStats?.rankedWinsThisSeason || 0) + (playerStats?.rankedLossesThisSeason || 0)) || 0) | percent:'1.0-2'}}</span>
-              <mat-progress-spinner class="green"
-                                    [value]="playerStats?.rankedWinsThisSeason / (playerStats?.rankedWinsThisSeason + playerStats?.rankedLossesThisSeason) * 100"></mat-progress-spinner>
-              <mat-progress-spinner class="gray circle-back" value="100"></mat-progress-spinner>
-              <span class="mat-title circle-text-bottom">Winrate</span>
-            </div>
-          </div>
-        </mat-tab>
-        <mat-tab label="CLASSIC (SEASON)">
-          <div class="circle-container" fxLayout="row">
-            <div class="circle" fxFlex>
-              <span
-                class="mat-title circle-text-center">{{(playerStats?.classicWinsThisSeason || 0) + (playerStats?.classicLossesThisSeason || 0)}}</span>
-              <mat-progress-spinner class="blue" value="100"></mat-progress-spinner>
-              <span class="mat-title circle-text-bottom">Played</span>
-            </div>
-            <div class="circle" fxFlex>
-              <span
-                class="mat-title circle-text-center">{{((playerStats?.classicWinsThisSeason || 0) / ((playerStats?.classicWinsThisSeason || 0) + (playerStats?.classicLossesThisSeason || 0)) || 0) | percent:'1.0-2'}}</span>
-              <mat-progress-spinner class="green"
-                                    [value]="playerStats?.classicWinsThisSeason / (playerStats?.classicWinsThisSeason + playerStats?.classicLossesThisSeason) * 100"></mat-progress-spinner>
-              <mat-progress-spinner class="gray circle-back" value="100"></mat-progress-spinner>
-              <span class="mat-title circle-text-bottom">Winrate</span>
-            </div>
-          </div>
-        </mat-tab>
-        <mat-tab label="ALL TIME">
-          <div class="circle-container" fxLayout="row">
-            <div class="circle" fxFlex>
-              <span
-                class="mat-title circle-text-center">{{playerStats?.gamesPlayed || 0}}</span>
-              <mat-progress-spinner class="blue" value="100"></mat-progress-spinner>
-              <span class="mat-title circle-text-bottom">Played</span>
-            </div>
-            <div class="circle" fxFlex>
-              <span
-                class="mat-title circle-text-center">{{((playerStats?.wins || 0) / (playerStats?.gamesPlayed)) || 0 | percent:'1.0-2'}}</span>
-              <mat-progress-spinner class="green"
-                                    [value]="playerStats?.wins / (playerStats?.gamesPlayed) * 100"></mat-progress-spinner>
-              <mat-progress-spinner class="gray circle-back" value="100"></mat-progress-spinner>
-              <span class="mat-title circle-text-bottom">Winrate</span>
-            </div>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
+  <app-player-gametype-stats gdColumn="auto / span 6" [playerStats]="playerStats"></app-player-gametype-stats>
   <div gdColumn="auto / span 4">
     <mat-card>
       <mat-card-header>
@@ -80,7 +21,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <mat-card gdColumn="auto / span 10" class="no-padding mat-elevation-z10 recent-games">
+  <mat-card gdColumn="auto / span 10" class="mat-elevation-z10 recent-games">
     <mat-card-header>
       <mat-card-title>Recent games</mat-card-title>
     </mat-card-header>

@@ -1,0 +1,15 @@
+.circle-container {
+  text-align: center;
+}
+
+.mat-progress-spinner {
+  margin: auto;
+}
+
+::ng-deep .mat-progress-spinner.blue circle, .mat-spinner.mat-accent circle {
+  stroke: #2796bc !important;
+}
+
+::ng-deep .mat-progress-spinner.green circle, .mat-spinner.mat-accent circle {
+  stroke: #3cbc8d !important;
+}
