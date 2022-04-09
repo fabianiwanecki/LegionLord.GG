@@ -3,12 +3,6 @@
   margin: 64px auto auto;
 }
 
-.player-icon {
-  width: 144px;
-  height: 144px;
-  margin-right: 16px;
-}
-
 span {
   display: block;
   margin: 0;
@@ -91,14 +85,6 @@ mat-tab-group {
 
 .mat-divider:last-child {
   display: none;
-}
-
-.elo-icon {
-  width: 24px;
-  height: 24px;
-  position: relative;
-  top: 6px;
-  margin-right: 4px;
 }
 
 .recent-games {

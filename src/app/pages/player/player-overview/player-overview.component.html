@@ -1,0 +1,33 @@
+<mat-card class="mat-elevation-z10">
+  <mat-card-content>
+    <img *ngIf="player?.avatarUrl" [src]="legionCdnUrl + player?.avatarUrl" class="player-icon" style="display:block;"
+         alt="player avatar picture"/>
+    <section class="section__player-info">
+      <span class="mat-headline">{{player?.playerName}}<br/></span>
+      <span class="mat-title">{{player?.guildName}}</span>
+      <span *ngIf="player?.guildTag"> [{{player.guildTag}}]</span>
+
+      <section class="section__rank-ranked">
+        <span class="mat-subheading-2">Ranked: </span>
+        <img class="elo-icon" [src]="'assets/ranks/' + getEloIcon(playerStats?.overallElo || 800)"
+             alt="ranked elo overall icon"/>
+        <span class="mat-subheading-2">{{playerStats?.overallElo || 800}}</span>
+        <span class="mat-subheading-2"> / </span>
+        <img class="elo-icon" [src]="'assets/ranks/' + getEloIcon(playerStats?.overallPeakEloThisSeason || 800)"
+             alt="ranked elo peak icon"/>
+        <span class="mat-subheading-2">{{playerStats?.overallPeakEloThisSeason || 800}} (Peak)</span>
+      </section>
+
+      <section class="section__rank-classic">
+        <span class="mat-subheading-2">Classic: </span>
+        <img class="elo-icon" [src]="'assets/ranks/' + getEloIcon(playerStats?.classicElo || 800)"
+             alt="classic elo overall icon"/>
+        <span class="mat-subheading-2">{{playerStats?.classicElo || 800}}</span>
+        <span class="mat-subheading-2"> / </span>
+        <img class="elo-icon" [src]="'assets/ranks/' + getEloIcon(playerStats?.classicPeakEloThisSeason || 800)"
+             alt="classic elo peak icon"/>
+        <span class="mat-subheading-2">{{playerStats?.classicPeakEloThisSeason || 800}} (Peak)</span>
+      </section>
+    </section>
+  </mat-card-content>
+</mat-card>

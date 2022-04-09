@@ -33,6 +33,7 @@ import { BarComponent } from './shared/components/charts/bar/bar.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { PlayerNotFoundSnackComponent } from './shared/player-not-found-snack/player-not-found-snack.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { PlayerOverviewComponent } from './pages/player/player-overview/player-overview.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     LegalDisclosureComponent,
     BarComponent,
     PlayerNotFoundSnackComponent,
+    PlayerOverviewComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,30 +1,5 @@
 <div class="content" gdColumns="repeat(14, minmax(0, 1fr))" gdGap="16px">
-  <mat-card class="mat-elevation-z10" gdColumn="auto / span 8">
-    <mat-card-content>
-      <img [src]="legionCdnUrl + player?.avatarUrl" class="player-icon" alt="player avatar picture"/>
-      <div class="player-details">
-        <span class="mat-headline">{{player?.playerName}}</span>
-        <span class="mat-title">{{player?.guildName}}
-          <ng-container *ngIf="player?.guildTag">[{{player.guildTag}}]</ng-container></span>
-        <span class="mat-subheading-2" *ngIf="playerStats?.overallElo">
-          Ranked:
-          <img class="elo-icon"
-               [src]="'assets/ranks/' + getEloIcon(playerStats?.overallElo)"/>{{playerStats?.overallElo}}
-          <ng-container
-            *ngIf="playerStats?.overallPeakEloThisSeason">/ <img class="elo-icon"
-                                                                 [src]="'assets/ranks/' + getEloIcon(playerStats?.overallPeakEloThisSeason)"/>{{playerStats.overallPeakEloThisSeason}}
-            (Peak)</ng-container></span>
-        <span class="mat-subheading-2" *ngIf="playerStats?.classicElo">
-          Classic:
-          <img class="elo-icon"
-               [src]="'assets/ranks/' + getEloIcon(playerStats?.classicElo)"/>{{playerStats?.classicElo}}
-          <ng-container
-            *ngIf="playerStats?.classicPeakEloThisSeason">/ <img class="elo-icon"
-                                                                 [src]="'assets/ranks/' + getEloIcon(playerStats?.classicPeakEloThisSeason)"/>{{playerStats.classicPeakEloThisSeason}}
-            (Peak)</ng-container></span>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <app-player-overview gdColumn="auto / span 8" [player]="player" [playerStats]="playerStats"></app-player-overview>
   <mat-card class="mat-elevation-z10 no-padding" gdColumn="auto / span 6">
     <mat-card-content>
       <mat-tab-group mat-stretch-tabs>
@@ -91,7 +66,8 @@
         <mat-card-title>Statistics</mat-card-title>
       </mat-card-header>
       <mat-card-content class="block">
-        <div *ngIf="(playerMatchHistory.length < initialPageSize && !isLoadNewPlayer && isMatchHistoryLoading) || isLoadNewPlayer">
+        <div
+          *ngIf="(playerMatchHistory.length < initialPageSize && !isLoadNewPlayer && isMatchHistoryLoading) || isLoadNewPlayer">
           <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
         </div>
         <div *ngIf="playerMatchHistory.length >= initialPageSize && !isLoadNewPlayer">

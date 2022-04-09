@@ -1,0 +1,25 @@
+.player-icon {
+  width: 128px;
+  height: 128px;
+  margin-right: 24px;
+}
+
+.elo-icon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 7px;
+  margin-right: 4px;
+}
+
+.mat-card-content {
+  display: flex;
+  align-items: center;
+}
+
+.mat-card {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+}

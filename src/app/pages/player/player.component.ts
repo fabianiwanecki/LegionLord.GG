@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PlayerService} from "../../shared/services/player.service";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment";
-import {getByElo} from "../../shared/game-data/RatingData";
 import {retry} from "rxjs";
 
 @Component({
@@ -32,8 +31,18 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadAllData();
+  }
+
+  loadAllData() {
     this.isMatchHistoryLoading = true;
-    this.playerService.getPlayerStats(<string>this.route.snapshot.paramMap.get('id')).subscribe(playerStats => this.playerStats = playerStats);
+    const currentPlayerId = <string>this.route.snapshot.paramMap.get('id');
+    this.playerService.getPlayerStats(currentPlayerId).subscribe(playerStats => this.playerStats = playerStats);
+    this.playerService.getPlayerById(currentPlayerId).subscribe(player => this.player = player)
+    this.getMatchHistory();
+  }
+
+  getMatchHistory() {
     this.playerService.getPlayerMatchHistory(<string>this.route.snapshot.paramMap.get('id'), this.initialPageSize).subscribe(
       {
         next: (playerMatchHistory) => {
@@ -46,31 +55,6 @@ export class PlayerComponent implements OnInit {
           this.isLoadNewPlayer = false;
         },
       });
-    this.playerService.getPlayerById(<string>this.route.snapshot.paramMap.get('id')).subscribe(player => this.player = player)
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.playerMatchHistory = [];
-        this.isLoadNewPlayer = true;
-        this.isMatchHistoryLoading = true;
-        this.playerService.getPlayerStats(<string>this.route.snapshot.paramMap.get('id')).subscribe(playerStats => this.playerStats = playerStats);
-        this.playerService.getPlayerMatchHistory(<string>this.route.snapshot.paramMap.get('id'), this.initialPageSize).subscribe(
-          {
-            next: (playerMatchHistory) => {
-              this.playerMatchHistory = playerMatchHistory;
-              this.isMatchHistoryLoading = false;
-              this.isLoadNewPlayer = false;
-            },
-            error: () => {
-              this.isMatchHistoryLoading = false;
-              this.isLoadNewPlayer = false;
-            },
-          });
-        this.playerService.getPlayerById(<string>this.route.snapshot.paramMap.get('id')).subscribe(player => this.player = player)
-      }
-    })
-
-
   }
 
   onScrollDown() {
@@ -85,10 +69,6 @@ export class PlayerComponent implements OnInit {
       this.playerMatchHistory = this.playerMatchHistory.concat(playerMatchHistory);
       this.isMatchHistoryLoading = false;
     });
-  }
-
-  getEloIcon(rating: number): string {
-    return getByElo(rating).icon;
   }
 
   countFirstWaveSnail(): number {
