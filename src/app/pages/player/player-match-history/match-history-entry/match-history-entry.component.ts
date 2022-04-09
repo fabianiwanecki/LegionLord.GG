@@ -1,17 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {environment} from "../../../../environments/environment";
-import {PlayerService} from "../../../shared/services/player.service";
+import {Component, Input} from '@angular/core';
+import {environment} from "../../../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
-import {getMercenaryByName} from "../../../shared/game-data/MercenaryData";
-import {getKingUpgradeByName} from "../../../shared/game-data/KingUpgradeData";
-import {getSpellByName} from "../../../shared/game-data/SpellData";
+import {getMercenaryByName} from "../../../../shared/game-data/MercenaryData";
+import {getKingUpgradeByName} from "../../../../shared/game-data/KingUpgradeData";
+import {getSpellByName} from "../../../../shared/game-data/SpellData";
 
 @Component({
   selector: 'app-match-history-entry',
   templateUrl: './match-history-entry.component.html',
   styleUrls: ['./match-history-entry.component.scss']
 })
-export class MatchHistoryEntryComponent implements OnInit {
+export class MatchHistoryEntryComponent {
 
   @Input() entry: any;
   legionCdnUrl = environment.legionCdnUrl;
@@ -21,11 +20,7 @@ export class MatchHistoryEntryComponent implements OnInit {
   displayedColumns: string[] = ['result', 'name', 'opening', 'fighters', 'leaks', 'workers', 'income', 'sent', 'received', 'spell', 'legion'];
   selectedWave: number = 0;
 
-  constructor(private route: ActivatedRoute,
-              private playerService: PlayerService) {
-  }
-
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute) {
   }
 
   getPlayer() {

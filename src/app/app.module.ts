@@ -16,7 +16,7 @@ import { PlayerComponent } from './pages/player/player.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatTabsModule} from "@angular/material/tabs";
-import { MatchHistoryEntryComponent } from './pages/player/match-history-entry/match-history-entry.component';
+import { MatchHistoryEntryComponent } from './pages/player/player-match-history/match-history-entry/match-history-entry.component';
 import {TimeagoModule} from "ngx-timeago";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
@@ -36,6 +36,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { PlayerOverviewComponent } from './pages/player/player-overview/player-overview.component';
 import { PlayerGametypeStatsComponent } from './pages/player/player-gametype-stats/player-gametype-stats.component';
 import { PlayerStatisticsComponent } from './pages/player/player-statistics/player-statistics.component';
+import { PlayerMatchHistoryComponent } from './pages/player/player-match-history/player-match-history.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { PlayerStatisticsComponent } from './pages/player/player-statistics/play
     PlayerOverviewComponent,
     PlayerGametypeStatsComponent,
     PlayerStatisticsComponent,
+    PlayerMatchHistoryComponent,
   ],
   imports: [
     BrowserModule,

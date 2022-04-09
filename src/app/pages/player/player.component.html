@@ -2,23 +2,5 @@
   <app-player-overview gdColumn="auto / span 8" [player]="player" [playerStats]="playerStats"></app-player-overview>
   <app-player-gametype-stats gdColumn="auto / span 6" [playerStats]="playerStats"></app-player-gametype-stats>
   <app-player-statistics gdColumn="auto / span 4" [playerMatchHistory]="playerMatchHistory" [initialPageSize]="initialPageSize"></app-player-statistics>
-  <mat-card gdColumn="auto / span 10" class="mat-elevation-z10 recent-games">
-    <mat-card-header>
-      <mat-card-title>Recent games</mat-card-title>
-    </mat-card-header>
-    <mat-card-content infinite-scroll
-                      [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
-                      [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
-      <ng-container *ngFor="let playerMatchHistoryEntry of playerMatchHistory">
-        <app-match-history-entry [entry]="playerMatchHistoryEntry"></app-match-history-entry>
-        <mat-divider></mat-divider>
-      </ng-container>
-      <div *ngIf="isMatchHistoryLoading || isLoadNewPlayer">
-        <mat-spinner color="accent" class="loading-spinner"></mat-spinner>
-      </div>
-      <div *ngIf="!isMatchHistoryLoading && (!playerMatchHistory || playerMatchHistory?.length === 0)">
-        <span class="mat-headline no-matches">No recent matches</span>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <app-player-match-history gdColumn="auto / span 10" [playerMatchHistory]="playerMatchHistory" [isMatchHistoryLoading]="isMatchHistoryLoading"></app-player-match-history>
 </div>

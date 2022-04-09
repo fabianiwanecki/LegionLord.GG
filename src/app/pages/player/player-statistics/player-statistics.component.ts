@@ -9,7 +9,7 @@ import {PlayerStatisticsService} from "../../../shared/services/player-statistic
 })
 export class PlayerStatisticsComponent implements OnInit {
 
-  @Input() playerMatchHistory?: any;
+  @Input() playerMatchHistory: any;
   @Input() initialPageSize!: number;
 
   playerId: string = "";

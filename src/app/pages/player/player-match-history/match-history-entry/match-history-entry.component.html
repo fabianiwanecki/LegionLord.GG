@@ -20,24 +20,24 @@
         </div>
         <div fxFlex>
           <span class="mat-subheading-1"><img class="icon-small"
-                                              src="assets/Income.png"/>{{getPlayer()?.incomePerWave[entry.endingWave - 1]}}</span><br/>
+                                              src="../../../../../assets/Income.png"/>{{getPlayer()?.incomePerWave[entry.endingWave - 1]}}</span><br/>
           <div class="spacer"></div>
           <span class="mat-subheading-1"><img class="icon-small"
-                                              src="assets/Worker.png"/>{{getPlayer()?.workers}}</span>
+                                              src="../../../../../assets/Worker.png"/>{{getPlayer()?.workers}}</span>
         </div>
         <div fxFlex>
           <span class="mat-subheading-1"><img class="icon-small"
-                                              src="assets/Value.png"/>{{getPlayer()?.value}}</span><br/>
+                                              src="../../../../../assets/Value.png"/>{{getPlayer()?.value}}</span><br/>
           <div class="spacer"></div>
           <span class="mat-subheading-1"><img class="icon-small"
-                                              src="assets/LeakRatio.png"/>{{getWavesLeakedCount(getPlayer()?.leaksPerWave)}}</span>
+                                              src="../../../../../assets/LeakRatio.png"/>{{getWavesLeakedCount(getPlayer()?.leaksPerWave)}}</span>
         </div>
         <div fxFlex>
           <span class="mat-subheading-1"><img class="icon-small"
-                                              src="assets/MercenariesSent.png"/>{{getMercenaryValue(getPlayer()?.mercenariesSentPerWave)}}</span><br/>
+                                              src="../../../../../assets/MercenariesSent.png"/>{{getMercenaryValue(getPlayer()?.mercenariesSentPerWave)}}</span><br/>
           <div class="spacer"></div>
           <span class="mat-subheading-1"><img class="icon-small"
-                                              src="assets/MercenariesReceived.png"/>{{getMercenaryValue(getPlayer()?.mercenariesReceivedPerWave)}}</span>
+                                              src="../../../../../assets/MercenariesReceived.png"/>{{getMercenaryValue(getPlayer()?.mercenariesReceivedPerWave)}}</span>
         </div>
         <div fxFlex="15">
           <span
@@ -139,10 +139,10 @@
               <span class="name mat-subheading-2 text-center">{{playerData.playerName}}</span>
               <section class="margin-bottom text-center">
                   <span class="margin-right"><img class="icon-small"
-                                                  src="assets/Worker.png"/>{{playerData.workersPerWave[selectedWave]}}
+                                                  src="../../../../../assets/Worker.png"/>{{playerData.workersPerWave[selectedWave]}}
                     (+{{playerData.workersPerWave[selectedWave] - (playerData.workersPerWave[selectedWave - 1] || 0)}}
                     )</span>
-                  <span><img class="icon-small" src="assets/Income.png"/>{{playerData.incomePerWave[selectedWave]}}
+                  <span><img class="icon-small" src="../../../../../assets/Income.png"/>{{playerData.incomePerWave[selectedWave]}}
                     (+{{playerData.incomePerWave[selectedWave] - (playerData.incomePerWave[selectedWave - 1] || 0)}})
                   </span>
                 </section>

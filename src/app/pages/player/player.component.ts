@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {PlayerService} from "../../shared/services/player.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment";
-import {retry} from "rxjs";
 
 @Component({
   selector: 'app-player',
@@ -16,10 +15,6 @@ export class PlayerComponent implements OnInit {
   player: any;
   legionCdnUrl = environment.legionCdnUrl;
 
-  throttle = 300;
-  scrollDistance = 1;
-  scrollUpDistance = 2;
-  pageSize = 10;
   initialPageSize = 20;
 
   isMatchHistoryLoading = false;
@@ -55,19 +50,5 @@ export class PlayerComponent implements OnInit {
           this.isLoadNewPlayer = false;
         },
       });
-  }
-
-  onScrollDown() {
-    if (!this.isMatchHistoryLoading) {
-      this.appendMatches();
-    }
-  }
-
-  private appendMatches() {
-    this.isMatchHistoryLoading = true;
-    this.playerService.getPlayerMatchHistory(<string>this.route.snapshot.paramMap.get('id'), this.pageSize, this.playerMatchHistory.length).pipe(retry(3)).subscribe((playerMatchHistory: any) => {
-      this.playerMatchHistory = this.playerMatchHistory.concat(playerMatchHistory);
-      this.isMatchHistoryLoading = false;
-    });
   }
 }
