@@ -76,6 +76,7 @@ html {
 
 body {
   margin: 0;
+  height: auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
   color: mat.get-contrast-color-from-palette($legion-lord-dark-palette, 900)
