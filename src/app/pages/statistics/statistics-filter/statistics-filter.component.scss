@@ -1,0 +1,16 @@
+.section__statistics-filter button {
+  margin-right: 32px;
+}
+
+.section__statistics-filter button:last-child {
+  margin-right: 0;
+}
+
+.filter-container {
+  margin-left: auto;
+  width: fit-content;
+}
+
+::ng-deep .mat-menu-panel {
+  background-color: #2E174A;
+}

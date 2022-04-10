@@ -40,6 +40,11 @@ import { PlayerMatchHistoryComponent } from './pages/player/player-match-history
 import { MatchHistorySummaryComponent } from './pages/player/player-match-history/match-history-entry/match-history-summary/match-history-summary.component';
 import { MatchDetailsComponent } from './pages/player/player-match-history/match-history-entry/match-details/match-details.component';
 import { MatchBuildsComponent } from './pages/player/player-match-history/match-history-entry/match-builds/match-builds.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { StatisticsFilterComponent } from './pages/statistics/statistics-filter/statistics-filter.component';
+import { StatisticsUnitsComponent } from './pages/statistics/statistics-units/statistics-units.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { ProgressBarComponent } from './shared/components/charts/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +66,10 @@ import { MatchBuildsComponent } from './pages/player/player-match-history/match-
     MatchHistorySummaryComponent,
     MatchDetailsComponent,
     MatchBuildsComponent,
+    StatisticsComponent,
+    StatisticsFilterComponent,
+    StatisticsUnitsComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +95,7 @@ import { MatchBuildsComponent } from './pages/player/player-match-history/match-
     InfiniteScrollModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   providers: [TimeagoModule],
   bootstrap: [AppComponent]

@@ -1,0 +1,6 @@
+<div xmlns:svg="http://www.w3.org/2000/svg" #container>
+  <app-chart [chartId]="chartId" [dimensions]="dimensions">
+    <svg:rect [attr.height]="height" [attr.width]="dimensions.width" fill="#1C0E2C"/>
+    <svg:rect [attr.height]="height" [attr.width]="dimensions.width" [attr.fill]="color" [style]="'transform: scaleX(' + value / 100 + ')'"/>
+  </app-chart>
+</div>

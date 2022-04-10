@@ -1,0 +1,36 @@
+<section class="section__statistics">
+  <mat-card class="no-padding">
+    <mat-card-content>
+      <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="UNITS">
+          <section class="section__statistics-units">
+            <app-statistics-filter></app-statistics-filter>
+            <div class="table-container">
+              <app-statistics-units></app-statistics-units>
+            </div>
+          </section>
+        </mat-tab>
+        <mat-tab label="OPENINGS">
+          <app-statistics-filter></app-statistics-filter>
+          <section>
+          </section>
+        </mat-tab>
+        <mat-tab label="LEGIONS">
+          <section>
+            <app-statistics-filter></app-statistics-filter>
+          </section>
+        </mat-tab>
+        <mat-tab label="WAVES">
+          <section>
+            <app-statistics-filter></app-statistics-filter>
+          </section>
+        </mat-tab>
+        <mat-tab label="LEGION SPELLS">
+          <section>
+            <app-statistics-filter></app-statistics-filter>
+          </section>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</section>
