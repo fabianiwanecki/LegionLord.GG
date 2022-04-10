@@ -1,0 +1,29 @@
+.container {
+  padding: 16px;
+}
+
+.icon-small {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  top: 2px;
+}
+
+.icon-large {
+  width: 64px;
+  height: 64px;
+  border-radius: 15px;
+}
+
+.won {
+  color: #3CBC8D;
+}
+
+.lost {
+  color: #CF6679;
+}
+
+.left {
+  color: gray;
+}

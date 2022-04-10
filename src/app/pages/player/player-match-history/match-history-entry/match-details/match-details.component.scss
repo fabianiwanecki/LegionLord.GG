@@ -1,0 +1,33 @@
+.icon-medium {
+  width: 48px;
+  height: 48px;
+  top: 2px;
+  position: relative;
+  border-radius: 12px;
+}
+
+.mat-table {
+  width: 100%;
+  background: none;
+}
+
+.won {
+  color: #3CBC8D;
+}
+
+.lost {
+  color: #CF6679;
+}
+
+.left {
+  color: gray;
+}
+
+tr.mat-row, tr.mat-footer-row {
+  height: 84px;
+}
+
+.caption__match-details {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}

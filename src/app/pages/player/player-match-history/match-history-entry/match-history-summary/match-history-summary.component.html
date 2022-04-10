@@ -1,0 +1,52 @@
+<div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="container">
+  <div fxFlex="12">
+    <span class="mat-title">{{entry.queueType}}</span><br/>
+    <span class="mat-subheading-2">{{entry.date | timeago}}</span><br/>
+    <span class="mat-subheading-2">Wave {{entry.endingWave}}</span>
+  </div>
+  <div fxFlex><img class="icon-large mat-elevation-z10"
+                   [src]="legionCdnUrl + 'icons/' + getPlayer()?.firstWaveFighters.split(',')[0].replaceAll(' ', '') + '.png'" alt=""/>
+  </div>
+  <div fxFlex>
+          <span
+            [className]="'mat-headline ' + (getPlayer()?.gameResult || 'left')">{{getPlayer()?.gameResult || 'left' | titlecase}}
+            <br/></span>
+    <span class="mat-subheading-1">{{entry.gameLength * 1000 | date: 'mm:ss'}}</span>
+  </div>
+  <div fxFlex>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="../../../../../assets/Income.png" alt=""/>{{getPlayer()?.incomePerWave[entry.endingWave - 1]}}</span><br/>
+    <div class="spacer"></div>
+    <span class="mat-subheading-1"><img class="icon-small"
+                                        src="../../../../../assets/Worker.png" alt=""/>{{getPlayer()?.workers}}</span>
+  </div>
+  <div fxFlex>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="../../../../../assets/Value.png" alt=""/>{{getPlayer()?.value}}</span><br/>
+    <div class="spacer"></div>
+    <span class="mat-subheading-1"><img class="icon-small"
+                                        src="../../../../../assets/LeakRatio.png" alt=""/>{{getWavesLeakedCount(getPlayer()?.leaksPerWave)}}</span>
+  </div>
+  <div fxFlex>
+          <span class="mat-subheading-1"><img class="icon-small"
+                                              src="../../../../../assets/MercenariesSent.png" alt=""/>{{mercenaryService.getMercenaryValue(getPlayer()?.mercenariesSentPerWave)}}</span><br/>
+    <div class="spacer"></div>
+    <span class="mat-subheading-1"><img class="icon-small"
+                                        src="../../../../../assets/MercenariesReceived.png" alt=""/>{{mercenaryService.getMercenaryValue(getPlayer()?.mercenariesReceivedPerWave)}}</span>
+  </div>
+  <div fxFlex="15">
+          <span
+            [className]="'mat-subheading-2 ' + entry.playersData[0]?.gameResult">{{entry.playersData[0]?.gameResult | titlecase}}</span><br/>
+    <ng-container
+      *ngFor="let playerData of entry.playersData.slice(0, entry.playersData.length / 2); let i = index">
+      <span class="mat-subheading-1">{{playerData.playerName}}</span><br/>
+    </ng-container>
+  </div>
+  <div fxFlex="15">
+          <span
+            [className]="'mat-subheading-2 ' + entry.playersData[entry.playersData.length - 1]?.gameResult">{{entry.playersData[entry.playersData.length - 1]?.gameResult | titlecase}}</span><br/>
+    <ng-container *ngFor="let playerData of entry.playersData.slice(entry.playersData.length / 2); let i = index">
+      <span class="mat-subheading-1">{{playerData.playerName}}</span><br/>
+    </ng-container>
+  </div>
+</div>

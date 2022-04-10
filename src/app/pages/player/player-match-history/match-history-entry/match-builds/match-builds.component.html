@@ -1,0 +1,37 @@
+<div class="wave-list" (keyup)="changeSelectedWave($event)">
+  <mat-chip-list>
+    <mat-chip *ngFor="let build of entry.playersData[0].buildPerWave; let i = index"
+              (click)="selectedWave = i"
+              [class.selected]="selectedWave === i">{{i + 1}}</mat-chip>
+  </mat-chip-list>
+</div>
+<div class="grid-container">
+  <div class="grid-content" *ngFor="let playerData of entry.playersData">
+    <span class="name mat-subheading-2 text-center">{{playerData.playerName}}</span>
+    <section class="margin-bottom text-center">
+                  <span class="margin-right"><img class="icon-small"
+                                                  src="../../../../../assets/Worker.png" alt=""/>{{playerData.workersPerWave[selectedWave]}}
+                    (+{{playerData.workersPerWave[selectedWave] - (playerData.workersPerWave[selectedWave - 1] || 0)}}
+                    )</span>
+      <span><img class="icon-small" src="../../../../../assets/Income.png" alt=""/>{{playerData.incomePerWave[selectedWave]}}
+        (+{{playerData.incomePerWave[selectedWave] - (playerData.incomePerWave[selectedWave - 1] || 0)}})
+                  </span>
+    </section>
+    <app-game-build [units]="playerData.buildPerWave[selectedWave]"
+                    (keyup)="changeSelectedWave($event)"></app-game-build>
+    <div>
+      <span class="mat-subheading-2 text-mercenaries-received text-center">Mercenaries received</span>
+      <div class="center">
+        <img class="icon-mercenary" [src]="getMercenaryIcon(mercenary)"
+             *ngFor="let mercenary of playerData.mercenariesReceivedPerWave[selectedWave]" alt=""/>
+      </div>
+    </div>
+    <article>
+      <span class="mat-subheading-2 text-mercenaries-received text-center">King upgrades received</span>
+      <div class="center">
+        <img class="icon-mercenary" [src]="getKingUpgradeIcon(kingUpgrade)"
+             *ngFor="let kingUpgrade of playerData.opponentKingUpgradesPerWave[selectedWave]" alt=""/>
+      </div>
+    </article>
+  </div>
+</div>

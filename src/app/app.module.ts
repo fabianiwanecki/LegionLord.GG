@@ -37,6 +37,9 @@ import { PlayerOverviewComponent } from './pages/player/player-overview/player-o
 import { PlayerGametypeStatsComponent } from './pages/player/player-gametype-stats/player-gametype-stats.component';
 import { PlayerStatisticsComponent } from './pages/player/player-statistics/player-statistics.component';
 import { PlayerMatchHistoryComponent } from './pages/player/player-match-history/player-match-history.component';
+import { MatchHistorySummaryComponent } from './pages/player/player-match-history/match-history-entry/match-history-summary/match-history-summary.component';
+import { MatchDetailsComponent } from './pages/player/player-match-history/match-history-entry/match-details/match-details.component';
+import { MatchBuildsComponent } from './pages/player/player-match-history/match-history-entry/match-builds/match-builds.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,9 @@ import { PlayerMatchHistoryComponent } from './pages/player/player-match-history
     PlayerGametypeStatsComponent,
     PlayerStatisticsComponent,
     PlayerMatchHistoryComponent,
+    MatchHistorySummaryComponent,
+    MatchDetailsComponent,
+    MatchBuildsComponent,
   ],
   imports: [
     BrowserModule,
