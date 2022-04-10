@@ -12,5 +12,5 @@ export const RatingData = [
 ]
 
 export function getByElo(elo: number): any {
-  return RatingData.find(rating => rating.startRating < elo && rating.endRating >= elo);
+  return RatingData.find(rating => rating.startRating <= elo && rating.endRating >= elo);
 }
