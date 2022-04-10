@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {DimensionsType} from "../models/DimensionsType";
 import {getUniqueId} from "../models/id";
 import {getByUnitId} from "../../../game-data/UnitData";
@@ -9,7 +9,7 @@ import {environment} from "../../../../../environments/environment";
   templateUrl: './game-build.component.html',
   styleUrls: ['./game-build.component.scss']
 })
-export class GameBuildComponent implements OnInit {
+export class GameBuildComponent {
 
   dimensions: DimensionsType;
   chartId: string = getUniqueId('Chart');
@@ -41,8 +41,4 @@ export class GameBuildComponent implements OnInit {
       }
     };
   }
-
-  ngOnInit(): void {
-  }
-
 }

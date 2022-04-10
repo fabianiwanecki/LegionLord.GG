@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {dim, DimensionsType} from "../../models/DimensionsType";
 
 @Component({
@@ -6,19 +6,12 @@ import {dim, DimensionsType} from "../../models/DimensionsType";
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit {
+export class GridComponent {
 
 
   @Input() dimensions: DimensionsType = dim;
   @Input() xCount: number = 9;
   @Input() yCount: number = 14;
-
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   xCountArray() {
     return new Array(this.xCount + 1);
