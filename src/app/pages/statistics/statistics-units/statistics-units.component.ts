@@ -15,6 +15,7 @@ export class StatisticsUnitsComponent implements AfterViewInit{
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
   unitPickRates: any;
+  loadingStats: boolean = true;
 
   displayedColumns: string[] = ['position', 'unitName', 'pickRate', 'winRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -24,7 +25,10 @@ export class StatisticsUnitsComponent implements AfterViewInit{
   }
 
   ngAfterViewInit() {
-    this.statsService.getUnitStats().subscribe((units) => this.dataSource.data = this.statsService.createUnitObject(units));
+    this.statsService.getUnitStats().subscribe((units) => {
+      this.dataSource.data = this.statsService.createUnitObject(units)
+      this.loadingStats = false;
+    });
     this.statsService.getUnitPickRateStats().subscribe((units) => this.unitPickRates = this.statsService.createUnitPickRateObject(units));
     this.dataSource.sort = this.sort;
   }

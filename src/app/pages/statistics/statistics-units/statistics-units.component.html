@@ -1,4 +1,5 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<mat-spinner color="accent" class="spinner" *ngIf="loadingStats"></mat-spinner>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort *ngIf="!loadingStats">
 
   <ng-container matColumnDef="position">
     <th mat-header-cell *matHeaderCellDef scope="col"> #</th>
