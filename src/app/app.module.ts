@@ -45,6 +45,10 @@ import { StatisticsFilterComponent } from './pages/statistics/statistics-filter/
 import { StatisticsUnitsComponent } from './pages/statistics/statistics-units/statistics-units.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { ProgressBarComponent } from './shared/components/charts/progress-bar/progress-bar.component';
+import { StatisticsOpeningComponent } from './pages/statistics/statistics-opening/statistics-opening.component';
+import { StatisticsLegionsComponent } from './pages/statistics/statistics-legions/statistics-legions.component';
+import { StatisticsLegionSpellsComponent } from './pages/statistics/statistics-legion-spells/statistics-legion-spells.component';
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -70,6 +74,9 @@ import { ProgressBarComponent } from './shared/components/charts/progress-bar/pr
     StatisticsFilterComponent,
     StatisticsUnitsComponent,
     ProgressBarComponent,
+    StatisticsOpeningComponent,
+    StatisticsLegionsComponent,
+    StatisticsLegionSpellsComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +103,7 @@ import { ProgressBarComponent } from './shared/components/charts/progress-bar/pr
     MatMenuModule,
     MatSnackBarModule,
     MatProgressBarModule,
+    MatSortModule,
   ],
   providers: [TimeagoModule],
   bootstrap: [AppComponent]

@@ -1,27 +1,27 @@
 <section class="section__statistics-filter">
-  <div class="filter-container">
-    <button mat-stroked-button [matMenuTriggerFor]="menuPatch">PATCH V9.02.3</button>
-    <mat-menu #menuPatch="matMenu" backdropClass="customize">
-      <button mat-menu-item>PATCH V9.02.3</button>
-    </mat-menu>
-    <button mat-stroked-button [matMenuTriggerFor]="menuGametype">NORMAL + CLASSIC</button>
-    <mat-menu #menuGametype="matMenu">
-      <button mat-menu-item>NORMAL</button>
-      <button mat-menu-item>CLASSIC</button>
-      <button mat-menu-item>NORMAL + CLASSIC</button>
-    </mat-menu>
-    <button mat-stroked-button [mat-menu-trigger-for]="menuRank">PLATINUM +</button>
-    <mat-menu #menuRank="matMenu">
-      <button mat-menu-item>BRONZE +</button>
-      <button mat-menu-item>SILVER +</button>
-      <button mat-menu-item>GOLD +</button>
-      <button mat-menu-item>PLATINUM +</button>
-      <button mat-menu-item>DIAMOND +</button>
-      <button mat-menu-item>EXPERT +</button>
-      <button mat-menu-item>MASTER +</button>
-      <button mat-menu-item>SENIOR MASTER +</button>
-      <button mat-menu-item>GRAND MASTER +</button>
-      <button mat-menu-item>LEGEND +</button>
-    </mat-menu>
-  </div>
+    <div class="filter-container">
+      <button mat-stroked-button [matMenuTriggerFor]="menuPatch">PATCH V9.02.3</button>
+      <mat-menu #menuPatch="matMenu" backdropClass="customize">
+        <button mat-menu-item>PATCH V9.02.3</button>
+      </mat-menu>
+      <button mat-stroked-button [matMenuTriggerFor]="menuGametype">NORMAL</button>
+      <mat-menu #menuGametype="matMenu">
+        <button mat-menu-item>NORMAL</button>
+        <button mat-menu-item disabled>CLASSIC (soon)</button>
+        <button mat-menu-item disabled>NORMAL + CLASSIC (soon)</button>
+      </mat-menu>
+      <button mat-stroked-button [mat-menu-trigger-for]="menuRank">BRONZE +</button>
+      <mat-menu #menuRank="matMenu">
+        <button mat-menu-item>BRONZE +</button>
+        <button mat-menu-item disabled>SILVER + (soon)</button>
+        <button mat-menu-item disabled>GOLD + (soon)</button>
+        <button mat-menu-item disabled>PLATINUM + (soon)</button>
+        <button mat-menu-item disabled>DIAMOND + (soon)</button>
+        <button mat-menu-item disabled>EXPERT + (soon)</button>
+        <button mat-menu-item disabled>MASTER + (soon)</button>
+        <button mat-menu-item disabled>SENIOR MASTER + (soon)</button>
+        <button mat-menu-item disabled>GRAND MASTER + (soon)</button>
+        <button mat-menu-item disabled>LEGEND + (soon)</button>
+      </mat-menu>
+    </div>
 </section>

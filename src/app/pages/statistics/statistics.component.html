@@ -11,26 +11,33 @@
           </section>
         </mat-tab>
         <mat-tab label="OPENINGS">
-          <app-statistics-filter></app-statistics-filter>
-          <section>
+          <section class="section__statistics-openings">
+            <app-statistics-filter></app-statistics-filter>
+            <div class="table-container">
+              <app-statistics-opening></app-statistics-opening>
+            </div>
           </section>
         </mat-tab>
         <mat-tab label="LEGIONS">
-          <section>
+          <section class="section__statistics-legions">
             <app-statistics-filter></app-statistics-filter>
-          </section>
-        </mat-tab>
-        <mat-tab label="WAVES">
-          <section>
-            <app-statistics-filter></app-statistics-filter>
+            <div class="table-container">
+              <app-statistics-legions></app-statistics-legions>
+            </div>
           </section>
         </mat-tab>
         <mat-tab label="LEGION SPELLS">
-          <section>
+          <section class="section__statistics-legion-spells">
             <app-statistics-filter></app-statistics-filter>
+            <div class="table-container">
+              <app-statistics-legion-spells></app-statistics-legion-spells>
+            </div>
           </section>
         </mat-tab>
       </mat-tab-group>
+      <div class="games-count-wrapper">
+        <span class="mat-subheading-2">{{gamesCount}} matches analyzed</span>
+      </div>
     </mat-card-content>
   </mat-card>
 </section>

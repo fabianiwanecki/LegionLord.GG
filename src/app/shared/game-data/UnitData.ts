@@ -3,6 +3,11 @@ export function getByUnitId(unitId: string): any {
   return UnitData.find(unit => unit.unitId === unitId);
 }
 
+export function getByUnitName(name: string): any {
+
+  return UnitData.find(unit => unit.name === name);
+}
+
 export const UnitData =
   [
     {

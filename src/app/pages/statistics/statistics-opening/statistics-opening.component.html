@@ -5,26 +5,24 @@
     <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="unitName">
-    <th mat-header-cell *matHeaderCellDef scope="col" mat-sort-header> Unit</th>
+  <ng-container matColumnDef="opening">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Opening</th>
     <td mat-cell *matCellDef="let element">
       <section class="section__unit-information">
-        <img [src]="legionCdnUrl + getUnit(element.unitName)?.iconPath" class="unit-icon mat-elevation-z10" alt=""/>
-        <div>
-          <span class="mat-subheading-2">{{element.unitName}}<br/></span>
-          <span class="mat-subheading-1 attack-mode">{{getUnit(element.unitName)?.attackMode}}</span>
-        </div>
+        <ng-container *ngFor="let unit of element.unitNames.split(',')">
+          <img [src]="legionCdnUrl + getUnit(unit).iconPath" class="unit-icon mat-elevation-z10" alt=""/>
+        </ng-container>
       </section>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="pickRate">
-    <th mat-header-cell *matHeaderCellDef scope="col"> Pick Rate</th>
+    <th mat-header-cell *matHeaderCellDef scope="col" mat-sort-header> Pick Rate</th>
     <td mat-cell *matCellDef="let element" style="width: 20%">
       <div class="progress-bar-container">
-        <app-progress-bar [value]="findUnitPickRateByName(element.unitName).pickRate * 100" color="#2796BC"></app-progress-bar>
+        <app-progress-bar [value]="element.pickRate * 100" color="#2796BC"></app-progress-bar>
       </div>
-      {{findUnitPickRateByName(element.unitName).pickRate | percent:'1.2'}}
+      {{element.pickRate | percent:'1.2'}}
     </td>
   </ng-container>
 

@@ -8,6 +8,14 @@ export const SpellData = [
     "tooltip": "+100 gold"
   },
   {
+    "_id": "taxed_allowance_powerup_id",
+    "category": "spells",
+    "enabled": true,
+    "iconPath": "Icons/TaxedAllowance.png",
+    "name": "Taxed Allowance",
+    "tooltip": "+80 gold"
+  },
+  {
     "_id": "press_the_attack_powerup_id",
     "category": "spells",
     "enabled": true,
