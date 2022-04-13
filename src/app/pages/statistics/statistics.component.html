@@ -1,7 +1,7 @@
 <section class="section__statistics">
   <mat-card class="no-padding">
     <mat-card-content>
-      <mat-tab-group mat-stretch-tabs>
+      <mat-tab-group mat-stretch-tabs [dynamicHeight]='true'>
         <mat-tab label="UNITS">
           <section class="section__statistics-units">
             <app-statistics-filter></app-statistics-filter>

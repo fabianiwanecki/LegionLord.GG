@@ -7,7 +7,7 @@
     </mat-expansion-panel-header>
 
     <ng-container *ngIf="panelOpenState">
-      <mat-tab-group>
+      <mat-tab-group [dynamicHeight]='true'>
         <mat-tab label="MATCH DETAILS">
           <app-match-details [entry]="entry"></app-match-details>
         </mat-tab>
