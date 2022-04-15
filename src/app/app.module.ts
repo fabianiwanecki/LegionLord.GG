@@ -49,6 +49,7 @@ import { StatisticsOpeningComponent } from './pages/statistics/statistics-openin
 import { StatisticsLegionsComponent } from './pages/statistics/statistics-legions/statistics-legions.component';
 import { StatisticsLegionSpellsComponent } from './pages/statistics/statistics-legion-spells/statistics-legion-spells.component';
 import {MatSortModule} from "@angular/material/sort";
+import { StatisticsWavesComponent } from './pages/statistics/statistics-waves/statistics-waves.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import {MatSortModule} from "@angular/material/sort";
     StatisticsOpeningComponent,
     StatisticsLegionsComponent,
     StatisticsLegionSpellsComponent,
+    StatisticsWavesComponent,
   ],
   imports: [
     BrowserModule,

@@ -58,4 +58,12 @@ export class StatsService {
   getUnitPickRateStats() {
     return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE'}});
   }
+
+  getWaveStats() {
+    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE'}});
+  }
+
+  createWaveObject(csv: any) {
+    return csv.map((entry: any) => entry.split(',')).map((entry: any) => { return {wave: entry[0], endingRate: entry[1]}});
+  }
 }
