@@ -23,3 +23,24 @@
   height: 100%;
   box-sizing: border-box;
 }
+
+.section__live-game {
+  position: absolute;
+  right: 32px;
+  top: 16px;
+}
+
+.red {
+  color: #B00020;
+}
+
+.icon__live-game {
+  position: relative;
+  top: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}

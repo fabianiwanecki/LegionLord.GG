@@ -28,6 +28,9 @@
              alt="classic elo peak icon"/>
         <span class="mat-subheading-2">{{playerStats?.classicPeakEloThisSeason || 800}} (Peak)</span>
       </section>
+      <section class="section__live-game" *ngIf="player?.playerName && liveGame">
+        <a (click)="navigateToLiveGame()"><mat-icon class="red icon__live-game">radio_button_checked</mat-icon><span class="mat-title"> Live Game</span></a>
+      </section>
     </section>
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {getUniqueId} from "../models/id";
 import {DimensionsType} from "../models/DimensionsType";
 
@@ -7,10 +7,11 @@ import {DimensionsType} from "../models/DimensionsType";
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss']
 })
-export class ProgressBarComponent {
+export class ProgressBarComponent implements OnInit {
 
   @Input() value: number = 100;
   @Input() height: number = 16;
+  @Input() width?: number;
   @Input() color: string = '#ffffff'
   chartId: string = getUniqueId('Chart');
   dimensions: DimensionsType;
@@ -18,7 +19,7 @@ export class ProgressBarComponent {
 
   constructor() {
     this.dimensions = {
-      width: 150,
+      width: this.width || 150,
       height: this.height,
       marginTop: 0,
       marginRight: 0,
@@ -32,4 +33,12 @@ export class ProgressBarComponent {
       }
     };
   }
+
+  ngOnInit(): void {
+    if (this.width) {
+      this.dimensions.width = this.width;
+    }
+  }
+
+
 }

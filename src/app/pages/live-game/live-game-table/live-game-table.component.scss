@@ -1,0 +1,35 @@
+.mat-table {
+  width: 1200px;
+  background-color: #2E174A;
+  margin: 32px auto;
+}
+
+.icon-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.icon-tiny {
+  width: 16px;
+  height: 16px;
+}
+
+td{
+  padding-bottom: 16px!important;
+  padding-top: 16px!important;
+}
+
+.float {
+  float: left;
+  margin-right: 8px;
+}
+
+.elo-icon {
+  top: 3px;
+  position: relative;
+}
+
+.player-icon {
+  border-radius: 12px;
+}

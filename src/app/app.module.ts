@@ -50,6 +50,9 @@ import { StatisticsLegionsComponent } from './pages/statistics/statistics-legion
 import { StatisticsLegionSpellsComponent } from './pages/statistics/statistics-legion-spells/statistics-legion-spells.component';
 import {MatSortModule} from "@angular/material/sort";
 import { StatisticsWavesComponent } from './pages/statistics/statistics-waves/statistics-waves.component';
+import { LiveGameComponent } from './pages/live-game/live-game.component';
+import {LiveGameSearchComponent} from "./pages/live-game-search/live-game-search.component";
+import { LiveGameTableComponent } from './pages/live-game/live-game-table/live-game-table.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { StatisticsWavesComponent } from './pages/statistics/statistics-waves/st
     StatisticsLegionsComponent,
     StatisticsLegionSpellsComponent,
     StatisticsWavesComponent,
+    LiveGameComponent,
+    LiveGameSearchComponent,
+    LiveGameTableComponent,
   ],
   imports: [
     BrowserModule,

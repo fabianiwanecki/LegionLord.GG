@@ -1,0 +1,142 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="icon">
+    <th mat-header-cell *matHeaderCellDef scope="col"></th>
+    <td mat-cell *matCellDef="let element"><img [src]="legionCdnUrl + element.avatarUrl" class="player-icon" alt=""/></td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Name</th>
+    <td mat-cell *matCellDef="let element"><span class="mat-subheading-2"> {{element.playerName}} </span></td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="rank">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Rank</th>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="element?.stats">
+        <div>
+          <span class="mat-subheading-1">Ranked: </span><br/>
+          <img class="icon-tiny elo-icon" [src]="'assets/ranks/' + getEloIcon(element.stats?.overallElo || 800)"
+               alt="ranked elo overall icon"/>
+          <span>{{element.stats?.overallElo || 800}}</span>
+          <span> / </span>
+          <img class="icon-tiny elo-icon"
+               [src]="'assets/ranks/' + getEloIcon(element.stats?.overallPeakEloThisSeason || 800)"
+               alt="ranked elo peak icon"/>
+          <span>{{element.stats?.overallPeakEloThisSeason || 800}}</span>
+        </div>
+        <div>
+          <span class="mat-subheading-1">Classic: </span><br/>
+          <img class="icon-tiny elo-icon" [src]="'assets/ranks/' + getEloIcon(element.stats?.classicElo || 800)"
+               alt="classic elo overall icon"/>
+          <span>{{element.stats?.classicElo || 800}}</span>
+          <span> / </span>
+          <img class="icon-tiny elo-icon"
+               [src]="'assets/ranks/' + getEloIcon(element.stats?.classicPeakEloThisSeason || 800)"
+               alt="classic elo peak icon"/>
+          <span>{{element.stats?.classicPeakEloThisSeason || 800}}</span>
+        </div>
+      </ng-container>
+      <mat-spinner *ngIf="!element?.stats" color="accent"></mat-spinner>
+    </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="winRate">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Win Rate</th>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="element?.stats">
+
+        <app-progress-bar class="float" color="#3cbc8d" [width]="75"
+                          [value]="element.stats?.winRate"></app-progress-bar>
+        <span>{{element.stats?.winRate / 100 | percent}}</span>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="firstWave">
+    <th mat-header-cell *matHeaderCellDef scope="col"> 1st Wave</th>
+    <td mat-cell
+        *matCellDef="let element" style="min-width: 85px">
+      <ng-container *ngIf="element?.matchHistory && element?._id">
+        <div>
+          <img src="assets/Snail.png" class="icon-tiny float" alt=""/>
+          <app-progress-bar color="#2796BC" [width]="75"
+                            [value]="playerStatsService.countFirstWaveSnail(element.matchHistory, element._id, 20) / 20 * 100"></app-progress-bar>
+        </div>
+        <img src="assets/KingUpgrade.png" class="icon-tiny float" alt=""/>
+        <app-progress-bar color="#2796BC" [width]="75"
+                          [value]="playerStatsService.countFirstWaveKing(element.matchHistory, element._id, 20) / 20 * 100"></app-progress-bar>
+        <img src="assets/Mythium32.png" class="icon-tiny float" alt=""/>
+        <app-progress-bar color="#2796BC" [width]="75"
+                          [value]="playerStatsService.countFirstWaveSave(element.matchHistory, element._id, 20) / 20 * 100"></app-progress-bar>
+      </ng-container>
+      <mat-spinner *ngIf="!element?.matchHistory" color="accent"></mat-spinner>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="legion">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Legion</th>
+    <td mat-cell
+        *matCellDef="let element" style="min-width: 85px">
+      <ng-container *ngIf="element?.matchHistory && element?._id">
+        <ng-container *ngFor="let legion of getLegionPicksSorted(element)">
+          <img [src]="'assets/mastermind-variants/' + legion.label + '.png'" class="icon-tiny float" alt=""/>
+          <app-progress-bar color="#2796BC" [width]="75"
+                            [value]="legion.value / 20 * 100"></app-progress-bar>
+        </ng-container>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="rolls">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Favorite Rolls</th>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="element?.matchHistory && element?._id">
+        <div gdColumns="repeat(3, minmax(0, 32px))" gdGap="8px" gdRows="repeat(2, minmax(0, 32px))">
+          <ng-container *ngFor="let roll of getRollsSorted(element); let i = index">
+            <img [src]="getUnitIconPath(roll.label)" class="icon-small" alt=""/>
+          </ng-container>
+        </div>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="openings">
+    <th mat-header-cell *matHeaderCellDef scope="col"> Favorite Openings</th>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="element?.matchHistory && element?._id">
+        <div gdColumns="repeat(3, minmax(0, 32px))" gdGap="8px" gdRows="repeat(2, minmax(0, 32px))">
+          <ng-container *ngFor="let opening of getOpeningsSorted(element); let i = index">
+            <div *ngIf="splitComma(opening.label).length > 1" gdColumns="repeat(2, minmax(0, 16px))"
+                 gdRows="repeat(2, minmax(0, 16px))">
+              <img *ngFor="let fighter of splitComma(opening.label); let i2 = index"
+                   [src]="getUnitIconPathByName(fighter)"
+                   [class.icon-tiny]="splitComma(opening.label).length > 1"
+                   [class.icon-small]="splitComma(opening.label).length === 1" alt=""/>
+            </div>
+            <div *ngIf="splitComma(opening.label).length === 1">
+              <img [src]="getUnitIconPathByName(opening.label)"
+                   [class.icon-tiny]="splitComma(opening.label).length > 1"
+                   [class.icon-small]="splitComma(opening.label).length === 1" alt=""/>
+            </div>
+
+          </ng-container>
+        </div>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

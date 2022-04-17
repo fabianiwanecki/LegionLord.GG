@@ -4,8 +4,7 @@ export function getByUnitId(unitId: string): any {
 }
 
 export function getByUnitName(name: string): any {
-
-  return UnitData.find(unit => unit.name === name);
+  return UnitData.find(unit => unit.name.toLowerCase() === name.toLowerCase());
 }
 
 export const UnitData =

@@ -45,4 +45,30 @@ export class PlayerStatisticsService {
       return {label: entry, value: legionMap.get(entry)};
     });
   }
+
+  getRolls(playerMatchHistory: any, playerId: string, limit: number = playerMatchHistory.length) {
+    const unitMap = playerMatchHistory
+      .slice(0, limit)
+      .map((match: any) =>
+        match.playersData.find((playerData: any) => playerData.playerId === playerId))
+      .map((playerData: any) => playerData.rolls.split(', ')).flat()
+      .filter((rolls: string) => rolls !== '')
+      .reduce((previousValue: any, currentValue: any) => previousValue.set(currentValue, (previousValue.get(currentValue) || 0) + 1), new Map());
+    return [...unitMap.keys()].map((entry: any) => {
+      return {label: entry, value: unitMap.get(entry)};
+    });
+  }
+
+  getOpenings(playerMatchHistory: any, playerId: string, limit: number = playerMatchHistory.length) {
+    const unitMap = playerMatchHistory
+      .slice(0, limit)
+      .map((match: any) =>
+        match.playersData.find((playerData: any) => playerData.playerId === playerId))
+      .map((playerData: any) => playerData.firstWaveFighters)
+      .filter((opening: string) => opening !== '')
+      .reduce((previousValue: any, currentValue: any) => previousValue.set(currentValue, (previousValue.get(currentValue) || 0) + 1), new Map());
+    return [...unitMap.keys()].map((entry: any) => {
+      return {label: entry, value: unitMap.get(entry)};
+    });
+  }
 }
