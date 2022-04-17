@@ -21,6 +21,7 @@ export class PlayerComponent implements OnInit {
 
   isMatchHistoryLoading = false;
   isLoadNewPlayer = true;
+  isLoadLiveGame = true;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,8 +41,14 @@ export class PlayerComponent implements OnInit {
       this.player = player;
       this.liveGameService.getLiveGameByPlayerName(this.player.playerName).subscribe(
         {
-          next: (liveGame) => this.liveGame = liveGame,
-          error: () => console.log("Live game search timed out. Probably the player is not in a game currently"),
+          next: (liveGame) => {
+            this.isLoadLiveGame = false;
+            this.liveGame = liveGame;
+          },
+          error: () => {
+            this.isLoadLiveGame = false;
+            console.log("Live game search timed out. Probably the player is not in a game currently")
+          },
         })
     })
     this.getMatchHistory();

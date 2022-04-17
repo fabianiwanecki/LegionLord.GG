@@ -37,10 +37,16 @@
 .icon__live-game {
   position: relative;
   top: 5px;
+  margin-right: 4px;
 }
 
 a {
-  text-decoration: none;
   color: white;
   cursor: pointer;
+}
+
+.spinner__live-game {
+  float: left;
+  top: 6px;
+  margin-right: 8px;
 }

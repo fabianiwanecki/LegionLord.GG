@@ -13,6 +13,7 @@ export class PlayerOverviewComponent {
   @Input() player: any;
   @Input() playerStats: any;
   @Input() liveGame: any;
+  @Input() loadingLiveGame: any;
   legionCdnUrl = environment.legionCdnUrl;
 
 

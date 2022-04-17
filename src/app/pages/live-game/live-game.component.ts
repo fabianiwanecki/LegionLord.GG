@@ -30,7 +30,10 @@ export class LiveGameComponent implements OnInit {
     Object.keys(this.players).forEach((key) =>{
       arr.push(this.players[key])
     });
-    return arr;
+
+    return arr.sort((a, b) => {
+      return this.route.snapshot.queryParams['players'].indexOf(a.playerName) - this.route.snapshot.queryParams['players'].indexOf(b.playerName)
+    });
   }
 
 }
