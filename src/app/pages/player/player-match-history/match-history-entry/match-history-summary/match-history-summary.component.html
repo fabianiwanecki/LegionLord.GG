@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="container">
   <div fxFlex="12">
-    <span class="mat-title">{{entry.queueType}}</span><br/>
+    <span class="mat-title">{{entry.queueType === 'Normal' ? 'Ranked' : entry.queueType}}</span><br/>
     <span class="mat-subheading-2">{{entry.date | timeago}}</span><br/>
     <span class="mat-subheading-2">Wave {{entry.endingWave}}</span>
   </div>

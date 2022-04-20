@@ -4,11 +4,11 @@
       <mat-menu #menuPatch="matMenu" backdropClass="customize">
         <button mat-menu-item>PATCH V9.02.3</button>
       </mat-menu>
-      <button mat-stroked-button [matMenuTriggerFor]="menuGametype">NORMAL</button>
+      <button mat-stroked-button [matMenuTriggerFor]="menuGametype">RANKED</button>
       <mat-menu #menuGametype="matMenu">
-        <button mat-menu-item>NORMAL</button>
+        <button mat-menu-item>RANKED</button>
         <button mat-menu-item disabled>CLASSIC (soon)</button>
-        <button mat-menu-item disabled>NORMAL + CLASSIC (soon)</button>
+        <button mat-menu-item disabled>RANKED + CLASSIC (soon)</button>
       </mat-menu>
       <button mat-stroked-button [mat-menu-trigger-for]="menuRank">BRONZE +</button>
       <mat-menu #menuRank="matMenu">
