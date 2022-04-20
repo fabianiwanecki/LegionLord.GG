@@ -29,7 +29,7 @@ export class StatsService {
   }
 
   createUnitObject(csv: any): any {
-    return csv.map((entry: any) => entry.split(',')).map((entry: any) => { return {unitName: entry[0], buildRate: entry[1], winRate: entry[2]}});
+    return csv.map((entry: any) => entry.split(',')).filter((entry: any) => entry[0] !== '').map((entry: any) => { return {unitName: entry[0], winRate: entry[1]}});
   }
 
   createUnitPickRateObject(csv: any): any {

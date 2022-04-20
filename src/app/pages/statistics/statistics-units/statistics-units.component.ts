@@ -38,6 +38,7 @@ export class StatisticsUnitsComponent implements AfterViewInit{
   }
 
   findUnitPickRateByName(unitName: any): any {
+    console.log(unitName)
     const unit = getByUnitName(unitName) || null;
     return this.unitPickRates?.find((unitPickRate: any) => unit.unitId === unitPickRate.unitId ||
       unit.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId ||
