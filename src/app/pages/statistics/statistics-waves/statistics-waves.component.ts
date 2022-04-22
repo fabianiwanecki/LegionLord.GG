@@ -4,6 +4,7 @@ import {MatSort} from "@angular/material/sort";
 import {environment} from "../../../../environments/environment";
 import {StatsService} from "../../../shared/services/stats.service";
 import {getWaveByLevelNum} from "../../../shared/game-data/WaveData";
+import {StatisticsFilterService} from "../../../shared/services/statistics-filter.service";
 
 @Component({
   selector: 'app-statistics-waves',
@@ -19,11 +20,13 @@ export class StatisticsWavesComponent implements AfterViewInit {
   legionCdnUrl = environment.legionCdnUrl;
 
 
-  constructor(private statsService: StatsService) {
+  constructor(private statsService: StatsService, private statisticsFilterService: StatisticsFilterService) {
   }
 
   ngAfterViewInit(): void {
-    this.statsService.getWaveStats().subscribe((waves) => this.dataSource.data = this.statsService.createWaveObject(waves));
+    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.statsService.getWaveStats(patch).subscribe((waves) => this.dataSource.data = this.statsService.createWaveObject(waves));
+    });
     this.dataSource.sort = this.sort;
   }
 

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {StatisticsFilterService} from "./statistics-filter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,23 +10,23 @@ export class StatsService {
 
   statsUrl = environment.backendUrl + 'stats';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private statisticsFilterService: StatisticsFilterService) {
   }
 
-  getUnitStats() {
-    return this.http.get(this.statsUrl, {params: {type: 'UNITS'}});
+  getUnitStats(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'UNITS', patch: patch}});
   }
 
-  getOpeningStats() {
-    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS'}});
+  getOpeningStats(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS', patch: patch}});
   }
 
-  getLegionStats() {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS'}});
+  getLegionStats(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS', patch: patch}});
   }
 
-  getLegionSpellsStats() {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS'}});
+  getLegionSpellsStats(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS', patch: patch}});
   }
 
   createUnitObject(csv: any): any {
@@ -51,16 +52,16 @@ export class StatsService {
       .map((entry: any) => { return {unitNames: entry[0], pickRate: entry[1], winRate: entry[2]}});
   }
 
-  getGamesCount() {
-    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT'}});
+  getGamesCount(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT', patch: patch}});
   }
 
-  getUnitPickRateStats() {
-    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE'}});
+  getUnitPickRateStats(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE', patch: patch}});
   }
 
-  getWaveStats() {
-    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE'}});
+  getWaveStats(patch: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE', patch: patch}});
   }
 
   createWaveObject(csv: any) {

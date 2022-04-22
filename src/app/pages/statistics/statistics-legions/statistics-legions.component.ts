@@ -4,6 +4,7 @@ import {StatsService} from "../../../shared/services/stats.service";
 import {getByUnitId} from "../../../shared/game-data/UnitData";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import {StatisticsFilterService} from "../../../shared/services/statistics-filter.service";
 
 @Component({
   selector: 'app-statistics-legions',
@@ -19,11 +20,13 @@ export class StatisticsLegionsComponent implements AfterViewInit {
   legionCdnUrl = environment.legionCdnUrl;
 
 
-  constructor(private statsService: StatsService) {
+  constructor(private statsService: StatsService, private statisticsFilterService: StatisticsFilterService) {
   }
 
   ngAfterViewInit(): void {
-    this.statsService.getLegionStats().subscribe((units) => this.dataSource.data = this.statsService.createLegionObject(units));
+    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.statsService.getLegionStats(patch).subscribe((units) => this.dataSource.data = this.statsService.createLegionObject(units));
+    });
     this.dataSource.sort = this.sort;
   }
 

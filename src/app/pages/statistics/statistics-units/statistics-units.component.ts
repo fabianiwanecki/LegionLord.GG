@@ -4,6 +4,7 @@ import {getByUnitId, getByUnitName} from "../../../shared/game-data/UnitData";
 import {StatsService} from "../../../shared/services/stats.service";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
+import {StatisticsFilterService} from "../../../shared/services/statistics-filter.service";
 
 @Component({
   selector: 'app-statistics-units',
@@ -21,16 +22,21 @@ export class StatisticsUnitsComponent implements AfterViewInit{
   legionCdnUrl = environment.legionCdnUrl;
 
 
-  constructor(private statsService: StatsService) {
+  constructor(private statsService: StatsService, private statisticsFilterService: StatisticsFilterService) {
   }
 
   ngAfterViewInit() {
-    this.statsService.getUnitStats().subscribe((units) => {
-      this.dataSource.data = this.statsService.createUnitObject(units)
-      this.loadingStats = false;
+    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.statsService.getUnitPickRateStats(patch).subscribe((units) => this.unitPickRates = this.statsService.createUnitPickRateObject(units));
     });
-    this.statsService.getUnitPickRateStats().subscribe((units) => this.unitPickRates = this.statsService.createUnitPickRateObject(units));
     this.dataSource.sort = this.sort;
+
+    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.statsService.getUnitStats(patch).subscribe((units) => {
+        this.dataSource.data = this.statsService.createUnitObject(units)
+        this.loadingStats = false;
+      });
+    })
   }
 
   getUnit(unitName: string): any {
@@ -38,7 +44,6 @@ export class StatisticsUnitsComponent implements AfterViewInit{
   }
 
   findUnitPickRateByName(unitName: any): any {
-    console.log(unitName)
     const unit = getByUnitName(unitName) || null;
     return this.unitPickRates?.find((unitPickRate: any) => unit.unitId === unitPickRate.unitId ||
       unit.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId ||

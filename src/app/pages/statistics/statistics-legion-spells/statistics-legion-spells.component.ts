@@ -4,6 +4,7 @@ import {StatsService} from "../../../shared/services/stats.service";
 import {getSpellByName} from "../../../shared/game-data/SpellData";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import {StatisticsFilterService} from "../../../shared/services/statistics-filter.service";
 
 @Component({
   selector: 'app-statistics-legion-spells',
@@ -19,11 +20,13 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
   legionCdnUrl = environment.legionCdnUrl;
 
 
-  constructor(private statsService: StatsService) {
+  constructor(private statsService: StatsService, private statisticsFilterService: StatisticsFilterService) {
   }
 
   ngAfterViewInit(): void {
-    this.statsService.getLegionSpellsStats().subscribe((units) => this.dataSource.data = this.statsService.createLegionSpellObject(units));
+    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.statsService.getLegionSpellsStats(patch).subscribe((units) => this.dataSource.data = this.statsService.createLegionSpellObject(units));
+    });
     this.dataSource.sort = this.sort;
   }
 
