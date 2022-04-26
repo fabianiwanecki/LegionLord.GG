@@ -35,7 +35,6 @@ export class StatisticsUnitsComponent implements AfterViewInit{
     this.dataSource.sort = this.sort;
 
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.dataSource = new MatTableDataSource();
       this.loadingStats = true;
       this.statsService.getUnitStats(patch).subscribe((units) => {
         this.dataSource.data = this.statsService.createUnitObject(units)

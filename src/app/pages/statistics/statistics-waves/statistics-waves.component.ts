@@ -26,7 +26,6 @@ export class StatisticsWavesComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.dataSource = new MatTableDataSource();
       this.loadingStats = true;
       this.statsService.getWaveStats(patch).subscribe((waves) => {
         this.dataSource.data = this.statsService.createWaveObject(waves)

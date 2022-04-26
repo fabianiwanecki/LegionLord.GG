@@ -26,7 +26,6 @@ export class StatisticsOpeningComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.dataSource = new MatTableDataSource();
       this.loadingStats = true;
       this.statsService.getOpeningStats(patch).subscribe((units) => {
         this.dataSource.data = this.statsService.createOpeningObject(units)
