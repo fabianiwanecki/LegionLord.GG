@@ -2,7 +2,7 @@
     <div class="filter-container">
       <button mat-stroked-button [matMenuTriggerFor]="menuPatch">PATCH {{statisticsFilterService.$selectedPatch | async}}</button>
       <mat-menu #menuPatch="matMenu" backdropClass="customize">
-        <button mat-menu-item *ngFor="let patch of patches" (click)="statisticsFilterService.selectedPatch = patch.patch">{{patch.patch}}</button>
+        <button mat-menu-item *ngFor="let patch of patches" (click)="statisticsFilterService.setSelectedPatch(patch.patch)">{{patch.patch}}</button>
       </mat-menu>
       <button mat-stroked-button [matMenuTriggerFor]="menuGametype">RANKED</button>
       <mat-menu #menuGametype="matMenu">

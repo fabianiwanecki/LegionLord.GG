@@ -1,4 +1,5 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<mat-spinner color="accent" class="spinner" *ngIf="loadingStats"></mat-spinner>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort [hidden]="loadingStats">
   <ng-container matColumnDef="wave">
     <th mat-header-cell *matHeaderCellDef scope="col" mat-sort-header> Wave</th>
     <td mat-cell *matCellDef="let element">

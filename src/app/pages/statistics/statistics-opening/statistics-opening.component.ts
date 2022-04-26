@@ -15,6 +15,7 @@ export class StatisticsOpeningComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
+  loadingStats: boolean = true;
 
   displayedColumns: string[] = ['position', 'opening', 'pickRate', 'winRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -25,7 +26,12 @@ export class StatisticsOpeningComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.statsService.getOpeningStats(patch).subscribe((units) => this.dataSource.data = this.statsService.createOpeningObject(units));
+      this.dataSource = new MatTableDataSource();
+      this.loadingStats = true;
+      this.statsService.getOpeningStats(patch).subscribe((units) => {
+        this.dataSource.data = this.statsService.createOpeningObject(units)
+        this.loadingStats = false;
+      });
     });
     this.dataSource.sort = this.sort;
   }

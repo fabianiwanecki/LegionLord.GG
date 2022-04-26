@@ -27,11 +27,16 @@ export class StatisticsUnitsComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.statsService.getUnitPickRateStats(patch).subscribe((units) => this.unitPickRates = this.statsService.createUnitPickRateObject(units));
+      this.statsService.getUnitPickRateStats(patch).subscribe((units) => {
+        this.unitPickRates = this.statsService.createUnitPickRateObject(units)
+        this.loadingStats = false;
+      });
     });
     this.dataSource.sort = this.sort;
 
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.dataSource = new MatTableDataSource();
+      this.loadingStats = true;
       this.statsService.getUnitStats(patch).subscribe((units) => {
         this.dataSource.data = this.statsService.createUnitObject(units)
         this.loadingStats = false;

@@ -15,6 +15,7 @@ export class StatisticsWavesComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
+  loadingStats: boolean = true;
 
   displayedColumns: string[] = ['wave', 'endingRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -25,7 +26,12 @@ export class StatisticsWavesComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.statsService.getWaveStats(patch).subscribe((waves) => this.dataSource.data = this.statsService.createWaveObject(waves));
+      this.dataSource = new MatTableDataSource();
+      this.loadingStats = true;
+      this.statsService.getWaveStats(patch).subscribe((waves) => {
+        this.dataSource.data = this.statsService.createWaveObject(waves)
+        this.loadingStats = false;
+      });
     });
     this.dataSource.sort = this.sort;
   }

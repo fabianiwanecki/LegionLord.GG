@@ -15,6 +15,7 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
+  loadingStats: boolean = true;
 
   displayedColumns: string[] = ['position', 'legionSpell', 'pickRate', 'winRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -25,7 +26,12 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.statsService.getLegionSpellsStats(patch).subscribe((units) => this.dataSource.data = this.statsService.createLegionSpellObject(units));
+      this.dataSource = new MatTableDataSource();
+      this.loadingStats = true;
+      this.statsService.getLegionSpellsStats(patch).subscribe((units) => {
+        this.dataSource.data = this.statsService.createLegionSpellObject(units)
+        this.loadingStats = false;
+      });
     });
     this.dataSource.sort = this.sort;
   }
