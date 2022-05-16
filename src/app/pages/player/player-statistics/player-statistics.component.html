@@ -12,7 +12,7 @@
       <app-bar
         [data]="firstWaveTendencyData()"></app-bar>
       <span class="mat-subheading-2">Legion picks (last {{initialPageSize}} matches)</span>
-      <app-bar [data]="playerStatisticsService.getLegionPicks(playerMatchHistory, playerId, initialPageSize)"></app-bar>
+      <app-bar [data]="playerStatisticsService.getLegionPicks(playerMatchHistory, player?._id, initialPageSize)"></app-bar>
     </div>
   </mat-card-content>
 </mat-card>

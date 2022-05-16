@@ -18,7 +18,7 @@ export class MatchHistorySummaryComponent {
   }
 
   getPlayer() {
-    return this.entry?.playersData.filter((playerData: any) => playerData.playerId === this.route.snapshot.paramMap.get('id'))[0];
+    return this.entry?.playersData.filter((playerData: any) => playerData.playerName.toLowerCase() === this.route.snapshot.paramMap.get('id')?.toLowerCase())[0];
   }
 
   getWavesLeakedCount(leaksPerWave: any) {

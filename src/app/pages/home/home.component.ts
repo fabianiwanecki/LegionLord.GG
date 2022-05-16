@@ -29,7 +29,7 @@ export class HomeComponent {
       this.loadingPlayer = true;
       this.playerService.searchPlayerByName(this.formSearchPlayer.controls['playerName'].value).subscribe({
         next: (player: any) => {
-          this.router.navigate(['/player', player['_id']]);
+          this.router.navigate(['/player', this.formSearchPlayer.controls['playerName'].value]);
         },
         error: () => {
           this.loadingPlayer = false

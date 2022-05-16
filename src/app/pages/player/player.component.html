@@ -1,6 +1,6 @@
 <div class="content" gdColumns="repeat(14, minmax(0, 1fr))" gdGap="16px">
   <app-player-overview gdColumn="auto / span 8" [player]="player" [playerStats]="playerStats" [liveGame]="liveGame" [loadingLiveGame]="isLoadLiveGame"></app-player-overview>
   <app-player-gametype-stats gdColumn="auto / span 6" [playerStats]="playerStats"></app-player-gametype-stats>
-  <app-player-statistics gdColumn="auto / span 4" [playerMatchHistory]="playerMatchHistory" [initialPageSize]="initialPageSize"></app-player-statistics>
-  <app-player-match-history gdColumn="auto / span 10" [playerMatchHistory]="playerMatchHistory" [isMatchHistoryLoading]="isMatchHistoryLoading"></app-player-match-history>
+  <app-player-statistics gdColumn="auto / span 4" [playerMatchHistory]="playerMatchHistory" [player]="player" [initialPageSize]="initialPageSize"></app-player-statistics>
+  <app-player-match-history gdColumn="auto / span 10" [playerMatchHistory]="playerMatchHistory" [isMatchHistoryLoading]="isMatchHistoryLoading" [player]="player"></app-player-match-history>
 </div>

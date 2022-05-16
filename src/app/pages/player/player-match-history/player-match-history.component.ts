@@ -10,6 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 export class PlayerMatchHistoryComponent {
 
   @Input() playerMatchHistory: any;
+  @Input() player: any;
   @Input() isMatchHistoryLoading: boolean = false;
   throttle = 300;
   scrollDistance = 1;
@@ -28,7 +29,7 @@ export class PlayerMatchHistoryComponent {
 
   private appendMatches() {
     this.isMatchHistoryLoading = true;
-    this.playerService.getPlayerMatchHistory(<string>this.route.snapshot.paramMap.get('id'), this.pageSize, this.playerMatchHistory.length).subscribe((playerMatchHistory: any) => {
+    this.playerService.getPlayerMatchHistory(this.player?._id, this.pageSize, this.playerMatchHistory.length).subscribe((playerMatchHistory: any) => {
       this.playerMatchHistory = this.playerMatchHistory.concat(playerMatchHistory);
       this.isMatchHistoryLoading = false;
     });
