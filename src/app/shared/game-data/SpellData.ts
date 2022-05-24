@@ -1,5 +1,13 @@
 export const SpellData = [
   {
+    "_id": "counterattack_powerup_id",
+    "category": "spells",
+    "enabled": true,
+    "iconPath": "Icons/Counterattack.png",
+    "name": "Counterattack",
+    "tooltip": "Every time you leak, gain 60 Mythium"
+  },
+  {
     "_id": "allowance_powerup_id",
     "category": "spells",
     "enabled": true,

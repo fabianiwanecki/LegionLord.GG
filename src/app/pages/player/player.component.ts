@@ -64,7 +64,6 @@ export class PlayerComponent implements OnInit {
       {
         next: (playerMatchHistory) => {
           this.playerMatchHistory = playerMatchHistory;
-          console.log(this.playerMatchHistory)
           this.isMatchHistoryLoading = false;
           this.isLoadNewPlayer = false;
         },
