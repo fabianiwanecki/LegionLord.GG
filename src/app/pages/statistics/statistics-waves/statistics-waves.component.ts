@@ -27,7 +27,14 @@ export class StatisticsWavesComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
       this.loadingStats = true;
-      this.statsService.getWaveStats(patch).subscribe((waves) => {
+      this.statsService.getWaveStats(patch, this.statisticsFilterService.selectedElo).subscribe((waves) => {
+        this.dataSource.data = this.statsService.createWaveObject(waves)
+        this.loadingStats = false;
+      });
+    });
+    this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingStats = true;
+      this.statsService.getWaveStats(this.statisticsFilterService.selectedPatch, elo).subscribe((waves) => {
         this.dataSource.data = this.statsService.createWaveObject(waves)
         this.loadingStats = false;
       });

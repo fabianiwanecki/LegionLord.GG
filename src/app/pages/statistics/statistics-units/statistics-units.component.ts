@@ -27,7 +27,13 @@ export class StatisticsUnitsComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.statsService.getUnitPickRateStats(patch).subscribe((units) => {
+      this.statsService.getUnitPickRateStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
+        this.unitPickRates = this.statsService.createUnitPickRateObject(units)
+        this.loadingStats = false;
+      });
+    });
+    this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.statsService.getUnitPickRateStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
         this.unitPickRates = this.statsService.createUnitPickRateObject(units)
         this.loadingStats = false;
       });
@@ -36,11 +42,21 @@ export class StatisticsUnitsComponent implements AfterViewInit{
 
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
       this.loadingStats = true;
-      this.statsService.getUnitStats(patch).subscribe((units) => {
+      this.statsService.getUnitStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
         this.dataSource.data = this.statsService.createUnitObject(units)
         this.loadingStats = false;
       });
     })
+
+    this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingStats = true;
+      this.statsService.getUnitStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
+        this.dataSource.data = this.statsService.createUnitObject(units)
+        this.loadingStats = false;
+      });
+    })
+
+
   }
 
   getUnit(unitName: string): any {

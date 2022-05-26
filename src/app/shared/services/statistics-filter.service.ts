@@ -1,17 +1,22 @@
 import {Injectable, OnInit} from '@angular/core';
 import {PatchService} from "./patch.service";
-import {Observable, Subject, Subscriber} from "rxjs";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatisticsFilterService implements OnInit {
 
-  selectedPatch:string = '';
+  selectedPatch: string = '';
 
   $selectedPatch = new Subject<string>();
 
-  constructor(private patchService: PatchService) { }
+  selectedElo: string = 'BRONZE';
+
+  $selectedElo = new Subject<string>();
+
+  constructor(private patchService: PatchService) {
+  }
 
   ngOnInit(): void {
     this.patchService.listPatches().subscribe((patches: any) => {
@@ -20,7 +25,13 @@ export class StatisticsFilterService implements OnInit {
     })
   }
 
+  setSelectedElo(elo: string) {
+    this.selectedElo = elo;
+    this.$selectedElo.next(elo);
+  }
+
   setSelectedPatch(patch: string) {
+    this.selectedPatch = patch;
     this.$selectedPatch.next(patch);
   }
 }

@@ -13,20 +13,32 @@ export class StatsService {
   constructor(private http: HttpClient, private statisticsFilterService: StatisticsFilterService) {
   }
 
-  getUnitStats(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'UNITS', patch: patch}});
+  getUnitStats(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'UNITS', patch: patch, elo: elo}});
   }
 
-  getOpeningStats(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS', patch: patch}});
+  getOpeningStats(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS', patch: patch, elo: elo}});
   }
 
-  getLegionStats(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS', patch: patch}});
+  getLegionStats(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS', patch: patch, elo: elo}});
   }
 
-  getLegionSpellsStats(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS', patch: patch}});
+  getLegionSpellsStats(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS', patch: patch, elo: elo}});
+  }
+
+  getGamesCount(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT', patch: patch, elo: elo}});
+  }
+
+  getUnitPickRateStats(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE', patch: patch, elo: elo}});
+  }
+
+  getWaveStats(patch: string, elo: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE', patch: patch, elo: elo}});
   }
 
   createUnitObject(csv: any): any {
@@ -50,18 +62,6 @@ export class StatsService {
       .map((entry: any) => [entry.substring(0, entry.lastIndexOf(',')), entry.substring(entry.lastIndexOf(',')+1)])
       .map((entry: any) => [entry[0].substring(0, entry[0].lastIndexOf(',')), entry[0].substring(entry[0].lastIndexOf(',')+1), entry[1]])
       .map((entry: any) => { return {unitNames: entry[0], pickRate: entry[1], winRate: entry[2]}});
-  }
-
-  getGamesCount(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT', patch: patch}});
-  }
-
-  getUnitPickRateStats(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE', patch: patch}});
-  }
-
-  getWaveStats(patch: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE', patch: patch}});
   }
 
   createWaveObject(csv: any) {

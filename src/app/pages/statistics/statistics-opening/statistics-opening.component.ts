@@ -27,7 +27,14 @@ export class StatisticsOpeningComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
       this.loadingStats = true;
-      this.statsService.getOpeningStats(patch).subscribe((units) => {
+      this.statsService.getOpeningStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
+        this.dataSource.data = this.statsService.createOpeningObject(units)
+        this.loadingStats = false;
+      });
+    });
+    this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingStats = true;
+      this.statsService.getOpeningStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
         this.dataSource.data = this.statsService.createOpeningObject(units)
         this.loadingStats = false;
       });

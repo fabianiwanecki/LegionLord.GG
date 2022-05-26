@@ -27,7 +27,14 @@ export class StatisticsLegionsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
       this.loadingStats = true;
-      this.statsService.getLegionStats(patch).subscribe((units) => {
+      this.statsService.getLegionStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
+        this.dataSource.data = this.statsService.createLegionObject(units)
+        this.loadingStats = false;
+      });
+    });
+    this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingStats = true;
+      this.statsService.getLegionStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
         this.dataSource.data = this.statsService.createLegionObject(units)
         this.loadingStats = false;
       });
