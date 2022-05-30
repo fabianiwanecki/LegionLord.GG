@@ -11,12 +11,13 @@ import {StatisticsFilterService} from "../../../shared/services/statistics-filte
   templateUrl: './statistics-units.component.html',
   styleUrls: ['./statistics-units.component.scss']
 })
-export class StatisticsUnitsComponent implements AfterViewInit{
+export class StatisticsUnitsComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
   unitPickRates: any;
   loadingStats: boolean = true;
+  loadingError: boolean = false;
 
   displayedColumns: string[] = ['position', 'unitName', 'pickRate', 'winRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -27,36 +28,56 @@ export class StatisticsUnitsComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.statsService.getUnitPickRateStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
-        this.unitPickRates = this.statsService.createUnitPickRateObject(units)
-        this.loadingStats = false;
+      this.loadingError = false;
+      this.loadingStats = true;
+      this.dataSource.data = [];
+      this.statsService.getUnitStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createUnitObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
+      });
+      this.statsService.getUnitPickRateStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+        next: (units) => {
+          this.unitPickRates = this.statsService.createUnitPickRateObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.statisticsFilterService.$selectedElo.subscribe(elo => {
-      this.statsService.getUnitPickRateStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
-        this.unitPickRates = this.statsService.createUnitPickRateObject(units)
-        this.loadingStats = false;
+      this.dataSource.data = [];
+      this.loadingError = false;
+      this.loadingStats = true;
+      this.statsService.getUnitStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createUnitObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
+      });
+      this.statsService.getUnitPickRateStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+        next: (units) => {
+          this.unitPickRates = this.statsService.createUnitPickRateObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.dataSource.sort = this.sort;
-
-    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.loadingStats = true;
-      this.statsService.getUnitStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
-        this.dataSource.data = this.statsService.createUnitObject(units)
-        this.loadingStats = false;
-      });
-    })
-
-    this.statisticsFilterService.$selectedElo.subscribe(elo => {
-      this.loadingStats = true;
-      this.statsService.getUnitStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
-        this.dataSource.data = this.statsService.createUnitObject(units)
-        this.loadingStats = false;
-      });
-    })
-
-
   }
 
   getUnit(unitName: string): any {
@@ -67,6 +88,6 @@ export class StatisticsUnitsComponent implements AfterViewInit{
     const unit = getByUnitName(unitName) || null;
     return this.unitPickRates?.find((unitPickRate: any) => unit.unitId === unitPickRate.unitId ||
       unit.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId ||
-    getByUnitId(unit.upgradesFrom[0]?.replace('units ', ''))?.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId) || {pickRate: 0};
+      getByUnitId(unit.upgradesFrom[0]?.replace('units ', ''))?.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId) || {pickRate: 0};
   }
 }

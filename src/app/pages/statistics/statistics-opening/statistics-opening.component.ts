@@ -16,6 +16,7 @@ export class StatisticsOpeningComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
   loadingStats: boolean = true;
+  loadingError: boolean = false;
 
   displayedColumns: string[] = ['position', 'opening', 'pickRate', 'winRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -26,18 +27,35 @@ export class StatisticsOpeningComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getOpeningStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
-        this.dataSource.data = this.statsService.createOpeningObject(units)
-        this.loadingStats = false;
+      this.dataSource.data = [];
+      this.statsService.getOpeningStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createOpeningObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getOpeningStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
-        this.dataSource.data = this.statsService.createOpeningObject(units)
-        this.loadingStats = false;
-      });
+      this.dataSource.data = [];
+      this.statsService.getOpeningStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+          next: (units) => {
+            this.dataSource.data = this.statsService.createOpeningObject(units)
+            this.loadingStats = false;
+          },
+          error: () => {
+            this.loadingError = true;
+            this.loadingStats = false;
+          }
+        }
+      );
     });
     this.dataSource.sort = this.sort;
   }

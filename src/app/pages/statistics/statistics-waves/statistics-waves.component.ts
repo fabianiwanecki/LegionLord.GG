@@ -16,6 +16,7 @@ export class StatisticsWavesComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
   loadingStats: boolean = true;
+  loadingError: boolean = false;
 
   displayedColumns: string[] = ['wave', 'endingRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -26,17 +27,33 @@ export class StatisticsWavesComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getWaveStats(patch, this.statisticsFilterService.selectedElo).subscribe((waves) => {
-        this.dataSource.data = this.statsService.createWaveObject(waves)
-        this.loadingStats = false;
+      this.dataSource.data = [];
+      this.statsService.getWaveStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+        next: (waves) => {
+          this.dataSource.data = this.statsService.createWaveObject(waves)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getWaveStats(this.statisticsFilterService.selectedPatch, elo).subscribe((waves) => {
-        this.dataSource.data = this.statsService.createWaveObject(waves)
-        this.loadingStats = false;
+      this.dataSource.data = [];
+      this.statsService.getWaveStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+        next: (waves) => {
+          this.dataSource.data = this.statsService.createWaveObject(waves)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.dataSource.sort = this.sort;

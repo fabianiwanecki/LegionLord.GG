@@ -16,6 +16,7 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
   loadingStats: boolean = true;
+  loadingError: boolean = false;
 
   displayedColumns: string[] = ['position', 'legionSpell', 'pickRate', 'winRate'];
   legionCdnUrl = environment.legionCdnUrl;
@@ -26,17 +27,33 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
+      this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getLegionSpellsStats(patch, this.statisticsFilterService.selectedElo).subscribe((units) => {
-        this.dataSource.data = this.statsService.createLegionSpellObject(units)
-        this.loadingStats = false;
+      this.dataSource.data = [];
+      this.statsService.getLegionSpellsStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createLegionSpellObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.statisticsFilterService.$selectedElo.subscribe(elo => {
+      this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getLegionSpellsStats(this.statisticsFilterService.selectedPatch, elo).subscribe((units) => {
-        this.dataSource.data = this.statsService.createLegionSpellObject(units)
-        this.loadingStats = false;
+      this.dataSource.data = [];
+      this.statsService.getLegionSpellsStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createLegionSpellObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
       });
     });
     this.dataSource.sort = this.sort;
