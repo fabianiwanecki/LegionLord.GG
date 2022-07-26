@@ -85,9 +85,12 @@ export class StatisticsUnitsComponent implements AfterViewInit {
   }
 
   findUnitPickRateByName(unitName: any): any {
-    const unit = getByUnitName(unitName) || null;
-    return this.unitPickRates?.find((unitPickRate: any) => unit.unitId === unitPickRate.unitId ||
-      unit.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId ||
-      getByUnitId(unit.upgradesFrom[0]?.replace('units ', ''))?.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId) || {pickRate: 0};
+    const unit = getByUnitName(unitName);
+    if (unit) {
+      return this.unitPickRates?.find((unitPickRate: any) => unit.unitId === unitPickRate.unitId ||
+        unit.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId ||
+        getByUnitId(unit.upgradesFrom[0]?.replace('units ', ''))?.upgradesFrom[0]?.replace('units ', '') === unitPickRate.unitId) || {pickRate: 0};
+    }
+    return {pickRate: 0};
   }
 }
