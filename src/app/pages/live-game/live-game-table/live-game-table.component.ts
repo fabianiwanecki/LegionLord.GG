@@ -25,7 +25,7 @@ export class LiveGameTableComponent {
   }
 
   getUnitIconPath(label: string) {
-    return this.legionCdnUrl + getByUnitId(label).iconPath;
+    return this.legionCdnUrl + getByUnitId(label)?.iconPath;
   }
 
   getOpeningsSorted(player: any) {
@@ -33,7 +33,7 @@ export class LiveGameTableComponent {
   }
 
   getUnitIconPathByName(label: any) {
-    return this.legionCdnUrl + getByUnitName(label).iconPath;
+    return this.legionCdnUrl + getByUnitName(label)?.iconPath;
   }
 
   splitComma(opening: string) {

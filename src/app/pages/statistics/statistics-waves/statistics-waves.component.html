@@ -5,7 +5,7 @@
     <th mat-header-cell *matHeaderCellDef scope="col" mat-sort-header> Wave</th>
     <td mat-cell *matCellDef="let element">
       <section class="section__unit-information">
-        <img [src]="legionCdnUrl + getWave(element.wave).iconPath" class="unit-icon mat-elevation-z10" alt=""/>
+        <img [src]="legionCdnUrl + getWave(element.wave)?.iconPath" class="unit-icon mat-elevation-z10" alt=""/>
         <div>
           <div>
             <span class="mat-subheading-2">{{getWave(element.wave).name}}<br/></span>

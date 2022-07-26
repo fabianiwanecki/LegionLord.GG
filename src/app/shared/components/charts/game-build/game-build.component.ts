@@ -22,7 +22,7 @@ export class GameBuildComponent {
   xPosAccessor = (d: any) => (d.split(':')[1].split('|')[0] - .5) * this.gridSize;
   yPosAccessor = (d: any) => (this.yCount - 1) * this.gridSize - (d.split(':')[1].split('|')[1] - .5) * this.gridSize;
   hrefAccessor = (d: any) => {
-    return environment.legionCdnUrl + getByUnitId(d.split(':')[0]).iconPath
+    return environment.legionCdnUrl + getByUnitId(d.split(':')[0])?.iconPath
   };
 
   constructor() {
