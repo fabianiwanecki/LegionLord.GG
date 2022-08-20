@@ -31,7 +31,7 @@ export class StatisticsUnitsComponent implements AfterViewInit {
       this.loadingError = false;
       this.loadingStats = true;
       this.dataSource.data = [];
-      this.statsService.getUnitStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+      this.statsService.getUnitStats(patch, this.statisticsFilterService.selectedElo, this.statisticsFilterService.selectedQueueType).subscribe({
         next: (units) => {
           this.dataSource.data = this.statsService.createUnitObject(units)
           this.loadingStats = false;
@@ -41,7 +41,7 @@ export class StatisticsUnitsComponent implements AfterViewInit {
           this.loadingStats = false;
         }
       });
-      this.statsService.getUnitPickRateStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+      this.statsService.getUnitPickRateStats(patch, this.statisticsFilterService.selectedElo, this.statisticsFilterService.selectedQueueType).subscribe({
         next: (units) => {
           this.unitPickRates = this.statsService.createUnitPickRateObject(units)
           this.loadingStats = false;
@@ -56,7 +56,7 @@ export class StatisticsUnitsComponent implements AfterViewInit {
       this.dataSource.data = [];
       this.loadingError = false;
       this.loadingStats = true;
-      this.statsService.getUnitStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+      this.statsService.getUnitStats(this.statisticsFilterService.selectedPatch, elo, this.statisticsFilterService.selectedQueueType).subscribe({
         next: (units) => {
           this.dataSource.data = this.statsService.createUnitObject(units)
           this.loadingStats = false;
@@ -66,7 +66,32 @@ export class StatisticsUnitsComponent implements AfterViewInit {
           this.loadingStats = false;
         }
       });
-      this.statsService.getUnitPickRateStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+      this.statsService.getUnitPickRateStats(this.statisticsFilterService.selectedPatch, elo, this.statisticsFilterService.selectedQueueType).subscribe({
+        next: (units) => {
+          this.unitPickRates = this.statsService.createUnitPickRateObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
+      });
+    });
+    this.statisticsFilterService.$selectedQueueType.subscribe(queueType => {
+      this.dataSource.data = [];
+      this.loadingError = false;
+      this.loadingStats = true;
+      this.statsService.getUnitStats(this.statisticsFilterService.selectedPatch, this.statisticsFilterService.selectedElo, queueType).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createUnitObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
+      });
+      this.statsService.getUnitPickRateStats(this.statisticsFilterService.selectedPatch, this.statisticsFilterService.selectedElo, queueType).subscribe({
         next: (units) => {
           this.unitPickRates = this.statsService.createUnitPickRateObject(units)
           this.loadingStats = false;

@@ -17,11 +17,15 @@ export class StatisticsComponent {
   ngOnInit(): void {
     this.statisticsFilterService.$selectedPatch.subscribe(patch => {
       this.gamesCount = 0;
-      this.statsService.getGamesCount(patch, this.statisticsFilterService.selectedElo).subscribe((gamesCount: any) => this.gamesCount = gamesCount[0])
+      this.statsService.getGamesCount(patch, this.statisticsFilterService.selectedElo, this.statisticsFilterService.selectedQueueType).subscribe((gamesCount: any) => this.gamesCount = gamesCount[0])
     });
     this.statisticsFilterService.$selectedElo.subscribe(elo => {
       this.gamesCount = 0;
-      this.statsService.getGamesCount(this.statisticsFilterService.selectedPatch, elo).subscribe((gamesCount: any) => this.gamesCount = gamesCount[0])
+      this.statsService.getGamesCount(this.statisticsFilterService.selectedPatch, elo, this.statisticsFilterService.selectedQueueType).subscribe((gamesCount: any) => this.gamesCount = gamesCount[0])
+    });
+    this.statisticsFilterService.$selectedQueueType.subscribe(queueType => {
+      this.gamesCount = 0;
+      this.statsService.getGamesCount(this.statisticsFilterService.selectedPatch, this.statisticsFilterService.selectedElo, queueType).subscribe((gamesCount: any) => this.gamesCount = gamesCount[0])
     });
   }
 

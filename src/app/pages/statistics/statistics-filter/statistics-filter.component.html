@@ -6,11 +6,10 @@
       <button mat-menu-item *ngFor="let patch of patches"
               (click)="statisticsFilterService.setSelectedPatch(patch.patch)">{{patch.patch}}</button>
     </mat-menu>
-    <button mat-stroked-button [matMenuTriggerFor]="menuGametype">RANKED</button>
+    <button mat-stroked-button [matMenuTriggerFor]="menuGametype">{{statisticsFilterService.selectedQueueType == 'NORMAL' ? 'RANKED' : statisticsFilterService.selectedQueueType}}</button>
     <mat-menu #menuGametype="matMenu">
-      <button mat-menu-item>RANKED</button>
-      <button mat-menu-item disabled>CLASSIC (soon)</button>
-      <button mat-menu-item disabled>RANKED + CLASSIC (soon)</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedQueueType('NORMAL')">RANKED</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedQueueType('CLASSIC')">CLASSIC</button>
     </mat-menu>
     <button mat-stroked-button [mat-menu-trigger-for]="menuRank">{{statisticsFilterService.selectedElo.replace('_', ' ')}} +</button>
     <mat-menu #menuRank="matMenu">

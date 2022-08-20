@@ -13,32 +13,32 @@ export class StatsService {
   constructor(private http: HttpClient, private statisticsFilterService: StatisticsFilterService) {
   }
 
-  getUnitStats(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'UNITS', patch: patch, elo: elo}});
+  getUnitStats(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'UNITS', patch: patch, elo: elo, queueType: queueType}});
   }
 
-  getOpeningStats(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS', patch: patch, elo: elo}});
+  getOpeningStats(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS', patch: patch, elo: elo, queueType: queueType}});
   }
 
-  getLegionStats(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS', patch: patch, elo: elo}});
+  getLegionStats(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS', patch: patch, elo: elo, queueType: queueType}});
   }
 
-  getLegionSpellsStats(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS', patch: patch, elo: elo}});
+  getLegionSpellsStats(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS', patch: patch, elo: elo, queueType: queueType}});
   }
 
-  getGamesCount(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT', patch: patch, elo: elo}});
+  getGamesCount(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT', patch: patch, elo: elo, queueType: queueType}});
   }
 
-  getUnitPickRateStats(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE', patch: patch, elo: elo}});
+  getUnitPickRateStats(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE', patch: patch, elo: elo, queueType: queueType}});
   }
 
-  getWaveStats(patch: string, elo: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE', patch: patch, elo: elo}});
+  getWaveStats(patch: string, elo: string, queueType: string) {
+    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE', patch: patch, elo: elo, queueType: queueType}});
   }
 
   createUnitObject(csv: any): any {

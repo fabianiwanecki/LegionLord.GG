@@ -30,7 +30,7 @@ export class StatisticsLegionsComponent implements AfterViewInit {
       this.loadingError = false;
       this.loadingStats = true;
       this.dataSource.data = [];
-      this.statsService.getLegionStats(patch, this.statisticsFilterService.selectedElo).subscribe({
+      this.statsService.getLegionStats(patch, this.statisticsFilterService.selectedElo, this.statisticsFilterService.selectedQueueType).subscribe({
         next: (units) => {
           this.dataSource.data = this.statsService.createLegionObject(units)
           this.loadingStats = false;
@@ -45,7 +45,22 @@ export class StatisticsLegionsComponent implements AfterViewInit {
       this.loadingError = false;
       this.loadingStats = true;
       this.dataSource.data = [];
-      this.statsService.getLegionStats(this.statisticsFilterService.selectedPatch, elo).subscribe({
+      this.statsService.getLegionStats(this.statisticsFilterService.selectedPatch, elo, this.statisticsFilterService.selectedQueueType).subscribe({
+        next: (units) => {
+          this.dataSource.data = this.statsService.createLegionObject(units)
+          this.loadingStats = false;
+        },
+        error: () => {
+          this.loadingError = true;
+          this.loadingStats = false;
+        }
+      });
+    });
+    this.statisticsFilterService.$selectedQueueType.subscribe(queueType => {
+      this.loadingError = false;
+      this.loadingStats = true;
+      this.dataSource.data = [];
+      this.statsService.getLegionStats(this.statisticsFilterService.selectedPatch, this.statisticsFilterService.selectedElo, queueType).subscribe({
         next: (units) => {
           this.dataSource.data = this.statsService.createLegionObject(units)
           this.loadingStats = false;

@@ -15,6 +15,10 @@ export class StatisticsFilterService implements OnInit {
 
   $selectedElo = new Subject<string>();
 
+  selectedQueueType: string = 'NORMAL';
+
+  $selectedQueueType = new Subject<string>();
+
   constructor(private patchService: PatchService) {
   }
 
@@ -33,5 +37,10 @@ export class StatisticsFilterService implements OnInit {
   setSelectedPatch(patch: string) {
     this.selectedPatch = patch;
     this.$selectedPatch.next(patch);
+  }
+
+  setSelectedQueueType(queueType: string) {
+    this.selectedQueueType = queueType;
+    this.$selectedQueueType.next(queueType);
   }
 }

@@ -24,6 +24,14 @@ export const SpellData = [
     "tooltip": "+80 gold"
   },
   {
+    "_id": "glacial_touch_powerup_id",
+    "category": "spells",
+    "enabled": true,
+    "iconPath": "Icons/GlacialTouch.png",
+    "name": "Glacial Touch",
+    "tooltip": "Gives a fighter a chilling attack that slows movement speed by 90% for 3 seconds. If the target dies while chilled, it explodes, dealing 50 pure damage in a small area."
+  },
+  {
     "_id": "press_the_attack_powerup_id",
     "category": "spells",
     "enabled": true,
