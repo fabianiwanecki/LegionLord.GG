@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {getMercenaryByName} from "../../../../../shared/game-data/MercenaryData";
 import {getKingUpgradeByName} from "../../../../../shared/game-data/KingUpgradeData";
+import {UnitService} from "../../../../../shared/services/unit.service";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
   selector: 'app-match-builds',
@@ -13,6 +14,9 @@ export class MatchBuildsComponent {
 
   selectedWave: number = 0;
 
+  constructor(private unitService: UnitService) {
+  }
+
   changeSelectedWave($event: KeyboardEvent) {
     if ($event.key === 'ArrowRight') {
       this.selectedWave = Math.min(this.entry.endingWave - 1, this.selectedWave + 1);
@@ -23,7 +27,7 @@ export class MatchBuildsComponent {
   }
 
   getMercenaryIcon(mercenaryName: string) {
-    return 'assets/mercenaries/' + getMercenaryByName(mercenaryName).icon
+    return environment.legionCdnUrl + this.unitService.getUnitByName(mercenaryName)?.iconPath
   }
 
   getKingUpgradeIcon(kingUpgrade: any) {

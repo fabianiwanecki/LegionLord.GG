@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'https://yy1fbsxadj.execute-api.eu-central-1.amazonaws.com/',
+  backendUrl: 'http://localhost:9090/',
+  //backendUrl: 'https://api.legionlord.com/',
   legionCdnUrl: 'https://cdn.legiontd2.com/'
 };

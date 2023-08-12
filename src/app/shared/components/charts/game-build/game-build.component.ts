@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {DimensionsType} from "../models/DimensionsType";
 import {getUniqueId} from "../models/id";
-import {getByUnitId} from "../../../game-data/UnitData";
 import {environment} from "../../../../../environments/environment";
+import {UnitService} from "../../../services/unit.service";
 
 @Component({
   selector: 'app-game-build',
@@ -22,10 +22,10 @@ export class GameBuildComponent {
   xPosAccessor = (d: any) => (d.split(':')[1].split('|')[0] - .5) * this.gridSize;
   yPosAccessor = (d: any) => (this.yCount - 1) * this.gridSize - (d.split(':')[1].split('|')[1] - .5) * this.gridSize;
   hrefAccessor = (d: any) => {
-    return environment.legionCdnUrl + getByUnitId(d.split(':')[0])?.iconPath
+    return environment.legionCdnUrl + this.unitService.getUnitByUnitId(d.split(':')[0])?.iconPath
   };
 
-  constructor() {
+  constructor(private unitService: UnitService) {
     this.dimensions = {
       width: this.xCount * this.gridSize,
       height: this.yCount * this.gridSize,

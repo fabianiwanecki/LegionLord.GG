@@ -7,8 +7,8 @@ import {environment} from "../../../environments/environment";
 })
 export class PlayerService {
 
-  playerUrl = environment.backendUrl + 'player/';
-  searchPlayerUrl = this.playerUrl + 'search/';
+  playerUrl = environment.backendUrl + 'players/';
+  searchPlayerUrl = this.playerUrl + 'by-name';
   statsEndpoint = '/stats';
   matchHistoryEndpoint = '/match-history?';
 
@@ -16,7 +16,8 @@ export class PlayerService {
   }
 
   searchPlayerByName(playerName: string) {
-    return this.http.get(this.searchPlayerUrl + playerName);
+
+    return this.http.get(this.searchPlayerUrl, {params: {name: playerName}});
   }
 
   getPlayerById(id: string) {

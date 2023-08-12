@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {StatsService} from "../../../shared/services/stats.service";
 import {getSpellByName} from "../../../shared/game-data/SpellData";
@@ -11,7 +11,7 @@ import {StatisticsFilterService} from "../../../shared/services/statistics-filte
   templateUrl: './statistics-legion-spells.component.html',
   styleUrls: ['./statistics-legion-spells.component.scss']
 })
-export class StatisticsLegionSpellsComponent implements AfterViewInit {
+export class StatisticsLegionSpellsComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
@@ -19,35 +19,20 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
   loadingError: boolean = false;
 
   displayedColumns: string[] = ['position', 'legionSpell', 'pickRate', 'winRate'];
-  legionCdnUrl = environment.legionCdnUrl;
+  legionCdnUrl = environment.legionCdnUrl + 'icons/';
 
 
   constructor(private statsService: StatsService, private statisticsFilterService: StatisticsFilterService) {
   }
 
-  ngAfterViewInit(): void {
-    this.statisticsFilterService.$selectedPatch.subscribe(patch => {
-      this.loadingError = false;
-      this.loadingStats = true;
-      this.dataSource.data = [];
-      this.statsService.getLegionSpellsStats(patch, this.statisticsFilterService.selectedElo, this.statisticsFilterService.selectedQueueType).subscribe({
-        next: (units) => {
-          this.dataSource.data = this.statsService.createLegionSpellObject(units)
-          this.loadingStats = false;
-        },
-        error: () => {
-          this.loadingError = true;
-          this.loadingStats = false;
-        }
-      });
-    });
+  ngOnInit(): void {
     this.statisticsFilterService.$selectedElo.subscribe(elo => {
       this.loadingError = false;
       this.loadingStats = true;
       this.dataSource.data = [];
-      this.statsService.getLegionSpellsStats(this.statisticsFilterService.selectedPatch, elo, this.statisticsFilterService.selectedQueueType).subscribe({
+      this.statsService.getLegionSpellsStats(elo, this.statisticsFilterService.selectedQueueType).subscribe({
         next: (units) => {
-          this.dataSource.data = this.statsService.createLegionSpellObject(units)
+          this.dataSource.data = units
           this.loadingStats = false;
         },
         error: () => {
@@ -61,9 +46,9 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
       this.loadingError = false;
       this.loadingStats = true;
       this.dataSource.data = [];
-      this.statsService.getLegionSpellsStats(this.statisticsFilterService.selectedPatch, this.statisticsFilterService.selectedElo, queueType).subscribe({
+      this.statsService.getLegionSpellsStats(this.statisticsFilterService.selectedElo, queueType).subscribe({
         next: (units) => {
-          this.dataSource.data = this.statsService.createLegionSpellObject(units)
+          this.dataSource.data = units
           this.loadingStats = false;
         },
         error: () => {
@@ -77,5 +62,17 @@ export class StatisticsLegionSpellsComponent implements AfterViewInit {
 
   getSpell(spell: string): any {
     return getSpellByName(spell);
+  }
+
+  transformSpellName(spell: string) {
+      return spell
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join('');
+  }
+
+  ngOnDestroy(): void {
+    this.statisticsFilterService.$selectedElo.unsubscribe();
+    this.statisticsFilterService.$selectedQueueType.unsubscribe();
   }
 }

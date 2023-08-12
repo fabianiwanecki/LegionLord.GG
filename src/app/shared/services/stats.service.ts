@@ -1,70 +1,58 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {StatisticsFilterService} from "./statistics-filter.service";
+import {Observable} from "rxjs";
+import {
+  EndingWaveStatisticsDto,
+  FirstWaveFightersStatisticsDto,
+  LegionStatisticsDto,
+  SpellStatisticsDto,
+  UnitStatisticsDto
+} from "../dtos/statistics";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatsService {
 
-  statsUrl = environment.backendUrl + 'stats';
+  statsUrl = environment.backendUrl + 'statistics/';
+  unitStatsUrl = this.statsUrl + 'units/latest';
+  legionsStatsUrl = this.statsUrl + 'legions/latest';
+  rollsStatsUrl = this.statsUrl + 'rolls/latest';
+  spellsStatsUrl = this.statsUrl + 'spells/latest';
+  endingWavesStatsUrl = this.statsUrl + 'ending-waves/latest';
+  firstWaveFightersStatsUrl = this.statsUrl + 'first-wave-fighters/latest';
+  gameCountUrl = this.statsUrl + 'game-count/latest';
 
-  constructor(private http: HttpClient, private statisticsFilterService: StatisticsFilterService) {
+
+  constructor(private http: HttpClient) {
   }
 
-  getUnitStats(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'UNITS', patch: patch, elo: elo, queueType: queueType}});
+  getUnitStats(rank: string, gameType: string): Observable<UnitStatisticsDto[]> {
+    return this.http.get<UnitStatisticsDto[]>(this.unitStatsUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 
-  getOpeningStats(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'OPENINGS', patch: patch, elo: elo, queueType: queueType}});
+  getOpeningStats(rank: string, gameType: string): Observable<FirstWaveFightersStatisticsDto[]> {
+    return this.http.get<FirstWaveFightersStatisticsDto[]>(this.firstWaveFightersStatsUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 
-  getLegionStats(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGIONS', patch: patch, elo: elo, queueType: queueType}});
+  getLegionStats(rank: string, gameType: string): Observable<LegionStatisticsDto[]> {
+    return this.http.get<LegionStatisticsDto[]>(this.legionsStatsUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 
-  getLegionSpellsStats(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'LEGION_SPELLS', patch: patch, elo: elo, queueType: queueType}});
+  getLegionSpellsStats(rank: string, gameType: string): Observable<SpellStatisticsDto[]> {
+    return this.http.get<SpellStatisticsDto[]>(this.spellsStatsUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 
-  getGamesCount(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'GAME_COUNT', patch: patch, elo: elo, queueType: queueType}});
+  getGamesCount(rank: string, gameType: string): Observable<any> {
+    return this.http.get(this.gameCountUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 
-  getUnitPickRateStats(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'UNIT_PICK_RATE', patch: patch, elo: elo, queueType: queueType}});
+  getUnitPickRateStats(rank: string, gameType: string): Observable<any> {
+    return this.http.get(this.statsUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 
-  getWaveStats(patch: string, elo: string, queueType: string) {
-    return this.http.get(this.statsUrl, {params: {type: 'ENDING_WAVE', patch: patch, elo: elo, queueType: queueType}});
-  }
-
-  createUnitObject(csv: any): any {
-    return csv.map((entry: any) => entry.split(',')).filter((entry: any) => entry[0] !== '').map((entry: any) => { return {unitName: entry[0], winRate: entry[1]}});
-  }
-
-  createUnitPickRateObject(csv: any): any {
-    return csv.map((entry: any) => entry.split(',')).map((entry: any) => { return {unitId: entry[0], pickRate: entry[1]}});
-  }
-
-  createLegionObject(csv: any): any {
-    return csv.map((entry: any) => entry.split(',')).map((entry: any) => { return {legion: entry[0], buildRate: entry[1], pickRate: entry[1], winRate: entry[2]}});
-  }
-
-  createLegionSpellObject(csv: any): any {
-    return csv.map((entry: any) => entry.split(',')).map((entry: any) => { return {legionSpell: entry[0], pickRate: entry[1], winRate: entry[3]}});
-  }
-
-  createOpeningObject(csv: any): any {
-    return csv
-      .map((entry: any) => [entry.substring(0, entry.lastIndexOf(',')), entry.substring(entry.lastIndexOf(',')+1)])
-      .map((entry: any) => [entry[0].substring(0, entry[0].lastIndexOf(',')), entry[0].substring(entry[0].lastIndexOf(',')+1), entry[1]])
-      .map((entry: any) => { return {unitNames: entry[0], pickRate: entry[1], winRate: entry[2]}});
-  }
-
-  createWaveObject(csv: any) {
-    return csv.map((entry: any) => entry.split(',')).map((entry: any) => { return {wave: entry[0], endingRate: entry[1]}});
+  getWaveStats(rank: string, gameType: string): Observable<EndingWaveStatisticsDto[]> {
+    return this.http.get<EndingWaveStatisticsDto[]>(this.endingWavesStatsUrl, {params: {rank: rank, 'game-type': gameType}});
   }
 }

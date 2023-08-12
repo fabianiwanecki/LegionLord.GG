@@ -1,30 +1,24 @@
 <section class="section__statistics-filter">
   <div class="filter-container">
-    <button mat-stroked-button [matMenuTriggerFor]="menuPatch">
-      PATCH {{statisticsFilterService.$selectedPatch | async}}</button>
-    <mat-menu #menuPatch="matMenu" backdropClass="customize">
-      <button mat-menu-item *ngFor="let patch of patches"
-              (click)="statisticsFilterService.setSelectedPatch(patch.patch)">{{patch.patch}}</button>
-    </mat-menu>
     <button mat-stroked-button [matMenuTriggerFor]="menuGametype">{{statisticsFilterService.selectedQueueType == 'NORMAL' ? 'RANKED' : statisticsFilterService.selectedQueueType}}</button>
     <mat-menu #menuGametype="matMenu">
       <button mat-menu-item (click)="statisticsFilterService.setSelectedQueueType('NORMAL')">RANKED</button>
       <button mat-menu-item (click)="statisticsFilterService.setSelectedQueueType('CLASSIC')">CLASSIC</button>
     </mat-menu>
-    <button mat-stroked-button [mat-menu-trigger-for]="menuRank">{{statisticsFilterService.selectedElo.replace('_', ' ')}} +</button>
+    <button mat-stroked-button [mat-menu-trigger-for]="menuRank">{{statisticsFilterService.selectedElo.replace('_', ' ')}}</button>
     <mat-menu #menuRank="matMenu">
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('BRONZE')">BRONZE +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('SILVER')">SILVER +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('GOLD')">GOLD +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('PLATINUM')">PLATINUM +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('DIAMOND')">DIAMOND +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('EXPERT')">EXPERT +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('MASTER')">MASTER +</button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('SENIOR_MASTER')">SENIOR MASTER +
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('BRONZE')">BRONZE</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('SILVER')">SILVER</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('GOLD')">GOLD</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('PLATINUM')">PLATINUM</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('DIAMOND')">DIAMOND</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('EXPERT')">EXPERT</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('MASTER')">MASTER</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('SENIOR_MASTER')">SENIOR MASTER
       </button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('GRANDMASTER')">GRANDMASTER +
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('GRANDMASTER')">GRANDMASTER
       </button>
-      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('LEGEND')">LEGEND +</button>
+      <button mat-menu-item (click)="statisticsFilterService.setSelectedElo('LEGEND')">LEGEND</button>
     </mat-menu>
   </div>
 </section>

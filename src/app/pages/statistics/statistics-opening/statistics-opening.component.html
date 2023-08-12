@@ -11,8 +11,8 @@
     <th mat-header-cell *matHeaderCellDef scope="col"> Opening</th>
     <td mat-cell *matCellDef="let element">
       <section class="section__unit-information">
-        <ng-container *ngFor="let unit of element.unitNames.split(',')">
-          <img [src]="legionCdnUrl + getUnit(unit)?.iconPath" class="unit-icon mat-elevation-z10" alt=""/>
+        <ng-container *ngFor="let unit of element.fighters">
+          <img [src]="legionCdnUrl + unit.replaceAll(' ', '') + '.png'" class="unit-icon mat-elevation-z10" alt=""/>
         </ng-container>
       </section>
     </td>

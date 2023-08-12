@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {PlayerStatisticsService} from "../../../shared/services/player-statistics.service";
-import {getByUnitId, getByUnitName} from "../../../shared/game-data/UnitData";
 import {environment} from "../../../../environments/environment";
 import {getByElo} from "../../../shared/game-data/RatingData";
+import {UnitService} from "../../../shared/services/unit.service";
 
 @Component({
   selector: 'app-live-game-table',
@@ -14,7 +14,7 @@ export class LiveGameTableComponent {
   @Input() dataSource: any;
   displayedColumns: string[] = ['icon', 'name', 'rank', 'winRate', 'firstWave', 'legion', 'rolls', 'openings'];
   legionCdnUrl = environment.legionCdnUrl;
-  constructor(public playerStatsService: PlayerStatisticsService) { }
+  constructor(public playerStatsService: PlayerStatisticsService, private unitService: UnitService) { }
 
   getLegionPicksSorted(player: any) {
     return this.playerStatsService.getLegionPicks(player.matchHistory, player._id, 20).sort((a, b) => b.value - a.value).slice(0, 3);
@@ -25,7 +25,7 @@ export class LiveGameTableComponent {
   }
 
   getUnitIconPath(label: string) {
-    return this.legionCdnUrl + getByUnitId(label)?.iconPath;
+    return this.legionCdnUrl + this.unitService.getUnitByUnitId(label)?.iconPath;
   }
 
   getOpeningsSorted(player: any) {
@@ -33,7 +33,7 @@ export class LiveGameTableComponent {
   }
 
   getUnitIconPathByName(label: any) {
-    return this.legionCdnUrl + getByUnitName(label)?.iconPath;
+    return this.legionCdnUrl + this.unitService.getUnitByName(label)?.iconPath;
   }
 
   splitComma(opening: string) {
